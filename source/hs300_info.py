@@ -2,9 +2,8 @@ import datetime
 
 import tushare as ts
 
-from db_connection import get_connection
-from moudle import S_Info
-from util import store_failed_message
+from source.moudle.base_info_moudle import S_Info
+from source.util.db_util import get_connection, store_failed_message
 
 
 def get_hs300_base_data():
