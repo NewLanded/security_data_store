@@ -1,3 +1,6 @@
 # security_data_store
 store stock data get from toshare
-abc
+
+sqlalchemy
+tushare
+mysqlclient
