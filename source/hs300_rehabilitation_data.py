@@ -28,13 +28,13 @@ def store_hs300_rehabilitation_data(session, code, hs300_rehabilitation_data):
         session.commit()
 
 
-if __name__ == "__main__":
+def start():
     session = get_connection()
 
     codes = get_codes(session)
-    start_date, end_date = datetime.datetime(2018, 5, 1), datetime.datetime(2018, 5, 16)
-    # start_date, end_date = datetime.datetime.now(), datetime.datetime.now()
-    load_dates = []
+    # start_date, end_date = datetime.datetime(2018, 5, 1), datetime.datetime(2018, 5, 16)
+    start_date, end_date = datetime.datetime.now() - datetime.timedelta(
+        days=1), datetime.datetime.now() - datetime.timedelta(days=1)
     for code in codes:
         try:
             hs300_rehabilitation_data = get_hs300_rehabilitation_data(code, convert_datetime_to_str(start_date),
@@ -43,3 +43,7 @@ if __name__ == "__main__":
         except Exception as e:
             store_failed_message(session, code, "000002", str(e), None)
     session.close()
+
+
+if __name__ == "__main__":
+    start()

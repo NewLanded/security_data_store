@@ -20,7 +20,7 @@ def store_hs300_base_data(session, hs300_weight_data):
         session.commit()
 
 
-if __name__ == "__main__":
+def start():
     session = get_connection()
 
     try:
@@ -29,3 +29,7 @@ if __name__ == "__main__":
     except Exception as e:
         store_failed_message(session, None, "000001", str(e), datetime.date.today())
     session.close()
+
+
+if __name__ == "__main__":
+    start()
