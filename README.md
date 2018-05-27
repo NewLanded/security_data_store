@@ -1,14 +1,15 @@
 # security_data_store
 store stock data get from toshare
 
-centos lib depend
+depended:
 gcc
-# gcc-devel
 python-devel
 mysql-devel
 
-
-sqlalchemy
+apache-airflow
+# cryptography
 bs4
 tushare
 mysqlclient
+
+
