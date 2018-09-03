@@ -1,18 +1,23 @@
 # security_data_store
-store stock data get from toshare
+store stock data get from tushare
 
-depended:
-gcc
-python-devel
-mysql-devel
+linux depended:
+    gcc
+    python-devel
+    mysql-devel
 
-apache-airflow
-pandas
-# cryptography
-bs4
-tushare
-mysqlclient
+pip install:
+    apache-airflow  # export SLUGIFY_USES_TEXT_UNIDECODE=yes
+    pandas
+    bs4
+    tushare
+    mysqlclient  # mysqlclient  # sudo ln -s /usr/lib64/libmariadbclient.a /usr/lib64/libmariadb.a
 
 
 
-定时任务地址: http://192.168.3.38:8080/admin/
+
+
+
+
+
+定时任务地址: http://47.92.6.148:6676/admin/
