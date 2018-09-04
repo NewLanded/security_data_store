@@ -12,6 +12,7 @@ pip install:
     bs4
     tushare
     mysqlclient  # mysqlclient  # sudo ln -s /usr/lib64/libmariadbclient.a /usr/lib64/libmariadb.a
+    xlrd
 
 
 

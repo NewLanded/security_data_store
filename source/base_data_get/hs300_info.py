@@ -14,7 +14,7 @@ def get_hs300_base_data():
 def store_hs300_base_data(session, hs300_weight_data):
     for index, security_weight_data in hs300_weight_data.iterrows():
         new_data = S_Info(code=security_weight_data["code"], name=security_weight_data["name"],
-                          hs300_weight=security_weight_data["weight"], data_date=security_weight_data["date"],
+                          hs300_weight=security_weight_data["weight"] / 100, data_date=security_weight_data["date"],
                           update_date=datetime.datetime.now())
         session.add(new_data)
         session.commit()
