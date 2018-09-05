@@ -11,13 +11,22 @@ pip install:
     pandas
     bs4
     tushare
-    mysqlclient  # mysqlclient  # sudo ln -s /usr/lib64/libmariadbclient.a /usr/lib64/libmariadb.a
+    mysql-connector
+    # mysqlclient  # mysqlclient  # sudo ln -s /usr/lib64/libmariadbclient.a /usr/lib64/libmariadb.a
     xlrd
 
 
 
 
+设置环境变量:SLUGIFY_USES_TEXT_UNIDECODE=yes
+设置动态库连接(是个bug, 以后的版本可能会修复): sudo ln -s /usr/lib64/libmariadbclient.a /usr/lib64/libmariadb.a
+sqlalchemy连接字符串: DB_CONNECT = 'mysql+mysqlconnector://root:password@localhost:3306/test?charset=utf8'
 
+mysql配置:
+show variables like 'explicit_defaults_for_timestamp'; 
+[mysqld]
+explicit_defaults_for_timestamp=true
+    
 
 
 
