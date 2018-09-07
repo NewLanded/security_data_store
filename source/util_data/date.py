@@ -7,6 +7,9 @@ from source.util_base.db_util import get_connection
 class Date:
     def __init__(self):
         self.session = get_connection()
+    
+    def __del__(self):
+        self.session.close()
 
     def is_workday(self, date):
         result = self.session.query(Sec_Date_Info).filter(Sec_Date_Info.date == date).one()
