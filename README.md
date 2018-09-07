@@ -7,12 +7,12 @@ linux depended:
     mysql-devel
 
 pip install:
-    apache-airflow  # export SLUGIFY_USES_TEXT_UNIDECODE=yes
+    schedule  # apache-airflow 1.10有bug, 暂时用schedule,  apache-airflow  # export SLUGIFY_USES_TEXT_UNIDECODE=yes
     pandas
     bs4
     tushare
-    mysql-connector
-    # mysqlclient  # mysqlclient  # sudo ln -s /usr/lib64/libmariadbclient.a /usr/lib64/libmariadb.a
+    mysql-connector  # 速度不如mysqlclient, 但依赖少, 安装简单
+    # mysqlclient  # mysqlclient  # sudo ln -s /usr/lib64/libmariadbclient.a /usr/lib64/libmariadb.a  # https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysqlclient
     xlrd
 
 
@@ -26,8 +26,7 @@ mysql配置:
 show variables like 'explicit_defaults_for_timestamp'; 
 [mysqld]
 explicit_defaults_for_timestamp=true
-    
 
 
+nohup python timed_task.py > /dev/null 2>&1 &
 
-定时任务地址: http://47.92.6.148:6676/admin/
