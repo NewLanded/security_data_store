@@ -28,5 +28,5 @@ show variables like 'explicit_defaults_for_timestamp';
 explicit_defaults_for_timestamp=true
 
 
-nohup python timed_task.py > /dev/null 2>&1 &
+nohup /home/stock/airflow_py_env/bin/python timed_task.py > /dev/null 2>&1 &
 
