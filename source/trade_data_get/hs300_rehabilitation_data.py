@@ -2,8 +2,8 @@ import datetime
 
 import tushare as ts
 
-from source.moudle.base_info_moudle import S_Info
-from source.moudle.data_moudle import Hs300_Rehabilitation_Data
+from source.module.base_info_module import S_Info
+from source.module.data_module import Hs300_Rehabilitation_Data
 from source.util_base.date_util import convert_datetime_to_str
 from source.util_base.db_util import get_connection, store_failed_message
 from source.util_data.date import Date
@@ -32,7 +32,7 @@ def store_hs300_rehabilitation_data(session, code, hs300_rehabilitation_data):
 def start():
     session = get_connection()
 
-    # start_date, end_date = datetime.datetime(2018, 5, 1), datetime.datetime(2018, 5, 16)
+    # date_now = datetime.datetime(2018, 9, 14)
     date_now = datetime.datetime.now()
     date_now = datetime.datetime(date_now.year, date_now.month, date_now.day)
     date_now_previous_day = date_now - datetime.timedelta(days=1)

@@ -1,6 +1,6 @@
 import datetime
 
-from source.moudle.base_info_moudle import Sec_Date_Info
+from source.module.base_info_module import Sec_Date_Info
 from source.util_base.date_util import get_date_range
 from source.util_base.db_util import get_connection
 

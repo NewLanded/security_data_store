@@ -4,7 +4,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from source.conf import DB_CONNECT
-from source.moudle.base_info_moudle import Failed_Code
+from source.module.base_info_module import Failed_Code
+
+engine = create_engine(DB_CONNECT, echo=False)
+DBSession = sessionmaker(bind=engine)
 
 
 def store_failed_message(session, code, index, error_message, date):
@@ -15,12 +18,8 @@ def store_failed_message(session, code, index, error_message, date):
 
 
 def get_connection():
-    engine = create_engine(DB_CONNECT, echo=False)
-    DBSession = sessionmaker(bind=engine)
     session = DBSession()
     return session
-
-
 
 # import mysql.connector.pooling
 #

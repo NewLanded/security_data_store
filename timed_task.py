@@ -6,6 +6,7 @@ from logging import handlers
 import schedule
 
 from source.trade_data_get import hs300_rehabilitation_data
+from source.trade_result_send.send_result import send_bs_result
 
 logger = logging.getLogger('/home/stock/app/security_data_store/timed_task.log')
 logger.setLevel(logging.INFO)
@@ -32,8 +33,13 @@ def job1_task():
     threading.Thread(target=job1).start()
 
 
+def job2():
+    send_bs_result()
+
+
 def run():
     schedule.every().day.at("5:00").do(job1_task)
+    schedule.every(5).minutes.do(job2)
 
 
 if __name__ == "__main__":
