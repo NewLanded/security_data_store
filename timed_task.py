@@ -8,12 +8,11 @@ import schedule
 from source.trade_data_get import hs300_rehabilitation_data
 from source.trade_result_send.send_result import send_bs_result
 
-logger = logging.getLogger('/home/stock/app/security_data_store/timed_task.log')
+logger = logging.getLogger('/home/stock/app/security_data_store/timed_task')
 logger.setLevel(logging.INFO)
-formatter = logging.Formatter(
-    '%(asctime)s - %(levelname)s - %(name)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
 
-rf = handlers.RotatingFileHandler('./spam.log', encoding='UTF-8', maxBytes=124, backupCount=0)
+rf = handlers.RotatingFileHandler('./timed_task.log', encoding='UTF-8', maxBytes=124, backupCount=0)
 rf.setLevel(logging.INFO)
 rf.setFormatter(formatter)
 

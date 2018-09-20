@@ -1,5 +1,5 @@
 import datetime
-
+import logging
 import tushare as ts
 
 from source.module.base_info_module import S_Info
@@ -7,6 +7,8 @@ from source.module.data_module import Hs300_Rehabilitation_Data
 from source.util_base.date_util import convert_datetime_to_str
 from source.util_base.db_util import get_connection, store_failed_message
 from source.util_data.date import Date
+
+logger = logging.getLogger('/home/stock/app/security_data_store/timed_task.hs300_rehabilitation_data')
 
 
 def get_codes(session):
@@ -30,17 +32,20 @@ def store_hs300_rehabilitation_data(session, code, hs300_rehabilitation_data):
 
 
 def start():
+    logger.info("start hs300_rehabilitation_data")
     session = get_connection()
 
     # date_now = datetime.datetime(2018, 9, 14)
     date_now = datetime.datetime.now()
     date_now = datetime.datetime(date_now.year, date_now.month, date_now.day)
     date_now_previous_day = date_now - datetime.timedelta(days=1)
+    logger.info("date_now_previous_day is {0}".format(date_now_previous_day))
 
     if Date().is_workday(date_now_previous_day):
         codes = get_codes(session)
         start_date, end_date = date_now_previous_day, date_now_previous_day
         for code in codes:
+            logger.info("code is {0}".format(code))
             try:
                 hs300_rehabilitation_data = get_hs300_rehabilitation_data(code, convert_datetime_to_str(start_date),
                                                                           convert_datetime_to_str(end_date))
@@ -48,6 +53,7 @@ def start():
             except Exception as e:
                 store_failed_message(session, code, "000002", str(e), None)
     session.close()
+    logger.info("finish hs300_rehabilitation_data")
 
 
 if __name__ == "__main__":
