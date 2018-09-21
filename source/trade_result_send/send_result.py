@@ -4,7 +4,8 @@ from source.util_module.email_module import send_email
 
 def send_bs_result():
     unsent_result = Result().get_unsent_result()
-    unsent_result_str = "code".ljust(10) + "b_point".ljust(10) + "s_point".ljust(10) + "quantity".ljust(10) + "tactics_code".ljust(10) + "\n"
+    unsent_result_str = "感谢您成为谷歌上网助手会员，你的本次支付的信息如下\n"
+    unsent_result_str += "code".ljust(10) + "b_point".ljust(10) + "s_point".ljust(10) + "quantity".ljust(10) + "tactics_code".ljust(10) + "\n"
     result_id = []
 
     if unsent_result:
