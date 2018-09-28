@@ -8,7 +8,7 @@ from source.util_base.date_util import convert_datetime_to_str
 from source.util_base.db_util import get_connection, store_failed_message
 from source.util_data.date import Date
 
-logger = logging.getLogger('/home/stock/app/security_data_store/timed_task.hs300_rehabilitation_data')
+# logger = logging.getLogger('/home/stock/app/security_data_store/timed_task.hs300_rehabilitation_data')
 
 
 def get_codes(session):
