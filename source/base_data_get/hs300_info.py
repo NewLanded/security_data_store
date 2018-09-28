@@ -2,7 +2,7 @@ import datetime
 
 import tushare as ts
 
-from source.module.base_info_module import S_Info
+from source.util_table_module.base_info_module import S_Info
 from source.util_base.db_util import get_connection, store_failed_message
 
 

@@ -1,6 +1,6 @@
 import datetime
 
-from source.module.result_module import BS_Data
+from source.util_table_module.result_module import BS_Data
 from source.util_base.db_util import get_connection
 
 

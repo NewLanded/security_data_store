@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from source.conf import DB_CONNECT
-from source.module.base_info_module import Failed_Code
+from source.util_table_module.base_info_module import Failed_Code
 
 engine = create_engine(DB_CONNECT, echo=False)
 DBSession = sessionmaker(bind=engine)
@@ -75,7 +75,7 @@ def get_connection():
 #     def execute(self, sql, args=None, commit=False):
 #         """
 #         Execute a sql, it could be with args and with out args. The usage is
-#         similar with execute() function in module pymysql.
+#         similar with execute() function in util_table_module pymysql.
 #         :param sql: sql clause
 #         :param args: args need by sql clause
 #         :param commit: whether to commit
