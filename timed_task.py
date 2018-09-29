@@ -5,7 +5,7 @@ from logging import handlers
 
 import schedule
 
-from source.trade_data_get import hs300_rehabilitation_data
+from source.trade_data_get import security_point_data
 from source.trade_result_send.send_result import send_bs_result
 
 logger = logging.getLogger('/home/stock/app/security_data_store/timed_task')
@@ -20,12 +20,12 @@ logger.addHandler(rf)
 
 
 def job1():
-    logger.info('starting hs300_rehabilitation_data')
+    logger.info('starting security_point_data')
     try:
-        hs300_rehabilitation_data.start()
+        security_point_data.start()
     except Exception as e:
-        logger.error('error hs300_rehabilitation_data, {0}'.format(str(e)))
-    logger.info('finished hs300_rehabilitation_data')
+        logger.error('error security_point_data, {0}'.format(str(e)))
+    logger.info('finished security_point_data')
 
 
 def job1_task():
@@ -37,7 +37,7 @@ def job2():
 
 
 def run():
-    schedule.every().day.at("5:00").do(job1_task)
+    schedule.every().day.at("1:00").do(job1_task)
     schedule.every(5).minutes.do(job2)
 
 

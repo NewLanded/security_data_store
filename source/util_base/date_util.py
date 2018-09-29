@@ -2,7 +2,7 @@ import datetime
 
 
 def convert_datetime_to_str(date):
-    return date.strftime('%Y-%m-%d')
+    return date.strftime('%Y%m%d')
 
 
 def convert_str_to_datetime(date):

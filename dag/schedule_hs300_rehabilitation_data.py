@@ -6,7 +6,7 @@ sys.path.append('/home/stock/app/security_data_store')
 from airflow.operators.python_operator import PythonOperator
 from airflow.models import DAG
 import datetime
-from source.trade_data_get import hs300_rehabilitation_data
+from source.trade_data_get import security_point_data
 
 args = {
     "owner": "flydedog",
@@ -25,7 +25,7 @@ dag = DAG(
 
 get_hs300_rehabilitation_data = PythonOperator(
     task_id="get_hs300_rehabilitation_data",
-    python_callable=hs300_rehabilitation_data.start,
+    python_callable=security_point_data.start,
     op_kwargs={},
     dag=dag
 )
