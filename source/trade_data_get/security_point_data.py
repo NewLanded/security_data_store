@@ -39,11 +39,10 @@ def store_security_point_data(session, security_point_data):
 
 
 def start(date_now=None):
-    session = get_connection()
-
-    # date_now = datetime.datetime.now()
-    # date_now = datetime.datetime(2018, 9, 14)
+    date_now = datetime.datetime.now() if date_now is None else date_now
     date_now = datetime.datetime(date_now.year, date_now.month, date_now.day)
+
+    session = get_connection()
 
     if Date().is_workday(date_now):
         ts_codes = get_ts_codes(session)
@@ -60,16 +59,6 @@ def start(date_now=None):
 
 
 if __name__ == "__main__":
-    # start()
-    for date in get_date_range(datetime.datetime(2018, 6, 1), datetime.datetime(2018, 6, 3)):
-        start(date)
-    # for date in get_date_range(datetime.datetime(2018, 6, 4), datetime.datetime(2018, 6, 30)):
+    start()
+    # for date in get_date_range(datetime.datetime(2018, 6, 1), datetime.datetime(2018, 6, 3)):
     #     start(date)
-    # for date in get_date_range(datetime.datetime(2018, 7, 1), datetime.datetime(2018, 7, 31)):
-    #     start(date)
-    # for date in get_date_range(datetime.datetime(2018, 8, 1), datetime.datetime(2018, 8, 31)):
-    #     start(date)
-    # for date in get_date_range(datetime.datetime(2018, 9, 1), datetime.datetime(2018, 9, 28)):
-    #     start(date)
-
-
