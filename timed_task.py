@@ -37,7 +37,7 @@ def job2():
 
 
 def run():
-    schedule.every().day.at("1:00").do(job1_task)
+    schedule.every().day.at("20:00").do(job1_task)
     schedule.every(5).minutes.do(job2)
 
 
