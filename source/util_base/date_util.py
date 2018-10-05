@@ -6,7 +6,10 @@ def convert_datetime_to_str(date):
 
 
 def convert_str_to_datetime(date):
-    return datetime.datetime.strptime(date, "%Y-%m-%d")
+    if "-" in date:
+        return datetime.datetime.strptime(date, "%Y-%m-%d")
+    else:
+        return datetime.datetime.strptime(date, "%Y%m%d")
 
 
 def get_date_range(start_date, end_date):
