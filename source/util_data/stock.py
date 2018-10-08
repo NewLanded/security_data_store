@@ -1,7 +1,8 @@
 import datetime
 
-from source.util_table_module.base_info_module import Security_Status
+from source.util_table_module.base_info_module import Security_Status, S_Info
 from source.util_base.db_util import get_connection
+from source.util_table_module.data_module import Security_Daily_Basic
 
 
 class Stock:
@@ -10,6 +11,38 @@ class Stock:
 
     def __del__(self):
         self._session.close()
+
+    def get_all_stocks_info(self):
+        result = self._session.query(S_Info).all()
+        stocks_info = {}
+        for stock_info in result:
+            stocks_info[stock_info["ts_code"]] = {
+                "code": stock_info["code"],
+                "name": stock_info["name"]
+            }
+        return stocks_info
+
+    def get_security_daily_basic_data(self, ts_code, start_date, end_date):
+        result = self._session.query(Security_Daily_Basic).filter(Security_Daily_Basic.ts_code == ts_code, Security_Daily_Basic.trade_date >= start_date,
+                                                                  Security_Daily_Basic.trade_date <= end_date).all()
+        security_daily_basic_data = {}
+        for one_day_basic_data in result:
+            security_daily_basic_data[one_day_basic_data["trade_date"]] = {
+                "close": one_day_basic_data["close"],
+                "turnover_rate": one_day_basic_data["turnover_rate"] / 100 if one_day_basic_data["turnover_rate"] else one_day_basic_data["turnover_rate"],
+                "volume_ratio": one_day_basic_data["volume_ratio"],
+                "pe": one_day_basic_data["pe"],
+                "pe_ttm": one_day_basic_data["pe_ttm"],
+                "pb": one_day_basic_data["pb"],
+                "ps": one_day_basic_data["ps"],
+                "ps_ttm": one_day_basic_data["ps_ttm"],
+                "total_share": one_day_basic_data["total_share"],
+                "float_share": one_day_basic_data["float_share"],
+                "free_share": one_day_basic_data["free_share"],
+                "total_mv": one_day_basic_data["total_mv"],
+                "circ_mv": one_day_basic_data["circ_mv"],
+            }
+        return security_daily_basic_data
 
     def is_valid_security_normal(self, ts_code):
         result = self._session.query(Security_Status).filter(Security_Status.ts_code == ts_code).all()

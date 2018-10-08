@@ -57,4 +57,6 @@ def start(date_now=None):
 
 
 if __name__ == "__main__":
-    start(datetime.datetime(2018, 5, 31))
+    # start(datetime.datetime(2018, 5, 31))
+    all_security_daily_basic = pro.daily_basic(trade_date="20181008")
+    pass

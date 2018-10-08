@@ -53,6 +53,6 @@ def start(date_now=None):
 if __name__ == "__main__":
     pass
     # start(datetime.datetime(2018, 5, 31))
-    df = pro.adj_factor(ts_code='000001.SZ')
+    all_security_point_data = pro.daily(trade_date="20181008")
     pass
 

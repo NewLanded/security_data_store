@@ -5,7 +5,7 @@ from logging import handlers
 
 import schedule
 
-from source.trade_data_get import security_point_data
+from source.trade_data_get import security_point_data, security_daily_basic_data
 from source.trade_result_send.send_result import send_bs_result
 
 logger = logging.getLogger('/home/stock/app/security_data_store/timed_task')
@@ -20,12 +20,19 @@ logger.addHandler(rf)
 
 
 def job1():
-    logger.info('starting security_point_data')
     try:
+        logger.info('starting security_point_data')
         security_point_data.start()
     except Exception as e:
         logger.error('error security_point_data, {0}'.format(str(e)))
     logger.info('finished security_point_data')
+
+    try:
+        logger.info('starting security_daily_basic_data')
+        security_daily_basic_data.start()
+    except Exception as e:
+        logger.error('error security_daily_basic_data, {0}'.format(str(e)))
+    logger.info('finished security_daily_basic_data')
 
 
 def job1_task():
