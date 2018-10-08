@@ -44,7 +44,8 @@ def start(date_now=None):
                 if Stock().is_valid_security_normal(security_point_data["ts_code"]):
                     store_security_point_data(session, security_point_data)
         except Exception as e:
-            store_failed_message(session, "", "000002", str(e), None)
+            session.rollback()
+            store_failed_message(session, "", "000002", str(e), date_now)
 
     session.close()
 
@@ -52,3 +53,6 @@ def start(date_now=None):
 if __name__ == "__main__":
     pass
     # start(datetime.datetime(2018, 5, 31))
+    df = pro.adj_factor(ts_code='000001.SZ')
+    pass
+

@@ -71,6 +71,7 @@ def start():
         store_stock_info(session, stock_info)
         store_stock_status(session, stock_info)
     except Exception as e:
+        session.rollback()
         store_failed_message(session, None, "000001", str(e), datetime.date.today())
     session.close()
 
