@@ -47,7 +47,7 @@ class Failed_Code(Base):
 
     id = Column(Integer, primary_key=True)
     code = Column(String(12), nullable=True, default=None)
-    index = Column(String(12), nullable=True, default=None)
+    index = Column(String(100), nullable=True, default=None)
     error_message = Column(String(10000), nullable=True, default=None)
     date = Column(DATETIME, nullable=True, default=None)
     update_date = Column(DATETIME, nullable=True, default=None)
