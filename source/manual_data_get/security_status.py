@@ -11,6 +11,10 @@ def get_security_point_data(ts_code, date_now):
 
 def calc_tactics_1_status(security_daily_basic_data):
     turnover_rate_list = [data["turnover_rate"] for data in security_daily_basic_data.values() if data["turnover_rate"] is not None]
+
+    if not turnover_rate_list:
+        return False
+
     average_turnover_rate = sum(turnover_rate_list) / len(turnover_rate_list)
     if average_turnover_rate >= 0.07:
         return True
@@ -18,12 +22,52 @@ def calc_tactics_1_status(security_daily_basic_data):
         return False
 
 
+def calc_tactics_2_status(security_daily_basic_data):
+    turnover_rate_list = [data["turnover_rate"] for data in security_daily_basic_data.values() if data["turnover_rate"] is not None]
+
+    if not turnover_rate_list:
+        return False
+
+    average_turnover_rate = sum(turnover_rate_list) / len(turnover_rate_list)
+    if average_turnover_rate >= 0.03:
+        return True
+    else:
+        return False
+
+
+def calc_tactics_3_status(security_daily_basic_data):
+    free_share_list = [data["free_share"] for data in security_daily_basic_data.values() if data["free_share"] is not None]
+
+    if not free_share_list:
+        return False
+
+    average_free_share = sum(free_share_list) / len(free_share_list)
+    if average_free_share >= 50000:
+        return True
+    else:
+        return False
+
+
+def calc_tactics_4_status(security_daily_basic_data):
+    share_ratio_list = [data["free_share"] / data["total_share"] for data in security_daily_basic_data.values() if
+                        data["free_share"] is not None and data["total_share"]]
+
+    if not share_ratio_list:
+        return False
+
+    average_share_ratio = sum(share_ratio_list) / len(share_ratio_list)
+    if average_share_ratio >= 0.6:
+        return True
+    else:
+        return False
+
+
 def store_stock_status(session, ts_code, ts_code_info, security_point_data, security_daily_basic_data):
     normal_status = 0 if "ST" in ts_code_info["name"] else 1  # ST股为0
-    tactics_1_status = 0 if calc_tactics_1_status(security_daily_basic_data) is False else 1  # 换手率小于0.07的为0, 差不多300条
-    tactics_2_status = None
-    tactics_3_status = None
-    tactics_4_status = None
+    tactics_1_status = 0 if calc_tactics_1_status(security_daily_basic_data) is False else 1  # 换手率大于等于0.07的为1, 差不多300条, 这应该都是一些小股票
+    tactics_2_status = 0 if calc_tactics_2_status(security_daily_basic_data) is False else 1  # 换手率大于等于0.03的为1, 差不多900条, 应该包含了一些中大型股票
+    tactics_3_status = 0 if calc_tactics_3_status(security_daily_basic_data) is False else 1  # 流通股本大于等于50000, 差不多1000条
+    tactics_4_status = 0 if calc_tactics_4_status(security_daily_basic_data) is False else 1  # 流通股本 / 总股本 大于等于0.6, 差不多714条
     tactics_5_status = None
     tactics_6_status = None
     tactics_7_status = None
@@ -63,16 +107,19 @@ def start(date_now=None):
 
     session = get_connection()
 
-    try:
-        stocks_info = Stock().get_all_stocks_info()
-        for ts_code, ts_code_info in stocks_info.items():
-            security_point_data = get_security_point_data(ts_code, date_now)
-            security_daily_basic_data = Stock().get_security_daily_basic_data(ts_code, date_now - datetime.timedelta(days=30), date_now)
+    # try:
+    session.query(Security_Status).delete()
+    session.commit()
 
-            store_stock_status(session, ts_code, ts_code_info, security_point_data, security_daily_basic_data)
-    except Exception as e:
-        session.rollback()
-        store_failed_message(session, None, "000001", str(e), datetime.date.today())
+    stocks_info = Stock().get_all_stocks_info()
+    for ts_code, ts_code_info in stocks_info.items():
+        security_point_data = get_security_point_data(ts_code, date_now)
+        security_daily_basic_data = Stock().get_security_daily_basic_data(ts_code, date_now - datetime.timedelta(days=90), date_now)
+
+        store_stock_status(session, ts_code, ts_code_info, security_point_data, security_daily_basic_data)
+    # except Exception as e:
+    #     session.rollback()
+    #     store_failed_message(session, None, "000004", str(e), datetime.date.today())
     session.close()
 
 

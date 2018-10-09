@@ -16,9 +16,9 @@ class Stock:
         result = self._session.query(S_Info).all()
         stocks_info = {}
         for stock_info in result:
-            stocks_info[stock_info["ts_code"]] = {
-                "code": stock_info["code"],
-                "name": stock_info["name"]
+            stocks_info[stock_info.ts_code] = {
+                "code": stock_info.code,
+                "name": stock_info.name
             }
         return stocks_info
 
@@ -27,20 +27,20 @@ class Stock:
                                                                   Security_Daily_Basic.trade_date <= end_date).all()
         security_daily_basic_data = {}
         for one_day_basic_data in result:
-            security_daily_basic_data[one_day_basic_data["trade_date"]] = {
-                "close": one_day_basic_data["close"],
-                "turnover_rate": one_day_basic_data["turnover_rate"] / 100 if one_day_basic_data["turnover_rate"] else one_day_basic_data["turnover_rate"],
-                "volume_ratio": one_day_basic_data["volume_ratio"],
-                "pe": one_day_basic_data["pe"],
-                "pe_ttm": one_day_basic_data["pe_ttm"],
-                "pb": one_day_basic_data["pb"],
-                "ps": one_day_basic_data["ps"],
-                "ps_ttm": one_day_basic_data["ps_ttm"],
-                "total_share": one_day_basic_data["total_share"],
-                "float_share": one_day_basic_data["float_share"],
-                "free_share": one_day_basic_data["free_share"],
-                "total_mv": one_day_basic_data["total_mv"],
-                "circ_mv": one_day_basic_data["circ_mv"],
+            security_daily_basic_data[one_day_basic_data.trade_date] = {
+                "close": one_day_basic_data.close,
+                "turnover_rate": one_day_basic_data.turnover_rate / 100 if one_day_basic_data.turnover_rate else one_day_basic_data.turnover_rate,
+                "volume_ratio": one_day_basic_data.volume_ratio,
+                "pe": one_day_basic_data.pe,
+                "pe_ttm": one_day_basic_data.pe_ttm,
+                "pb": one_day_basic_data.pb,
+                "ps": one_day_basic_data.ps,
+                "ps_ttm": one_day_basic_data.ps_ttm,
+                "total_share": one_day_basic_data.total_share,
+                "float_share": one_day_basic_data.float_share,
+                "free_share": one_day_basic_data.free_share,
+                "total_mv": one_day_basic_data.total_mv,
+                "circ_mv": one_day_basic_data.circ_mv,
             }
         return security_daily_basic_data
 

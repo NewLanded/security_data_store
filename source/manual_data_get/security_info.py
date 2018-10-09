@@ -27,6 +27,9 @@ def start():
     session = get_connection()
 
     try:
+        session.query(S_Info).delete()
+        session.commit()
+
         stock_info = get_stock_info()
         store_stock_info(session, stock_info)
     except Exception as e:

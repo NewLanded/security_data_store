@@ -99,6 +99,10 @@ def start():
     end_date = datetime.datetime(2020, 12, 31)
 
     date_range = get_date_range(start_date, end_date)
+
+    session.query(Sec_Date_Info).delete()
+    session.commit()
+
     for date in date_range:
         is_workday_flag = 1 if datetime.datetime.isoweekday(date) <= 5 and date not in holiday_manual else 0
         new_data = Sec_Date_Info(date=date, is_workday_flag=is_workday_flag)
