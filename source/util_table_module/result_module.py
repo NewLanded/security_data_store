@@ -12,6 +12,6 @@ class BS_Data(Base):
     b_point = Column(Float)
     s_point = Column(Float)
     quantity = Column(Integer, nullable=True, default=None)
-    tactics_code = Column(String(6), nullable=True, default=None)
+    tactics_code = Column(String(50), nullable=True, default=None)
     sent_flag = Column(Boolean)
     update_date = Column(DATETIME, nullable=True, default=None)
