@@ -27,4 +27,4 @@ def send_email(subject, text):
 
 
 if __name__ == "__main__":
-    send_email("BS", "ssssssssssssssssssssssssssss\nffffffffffffffffffffff")
+    send_email("BS", "感谢您成为谷歌上网助手会员，你的本次支付的信息如下<br> code b_point s_point quantity tactics_code<br> 002463 0.0 0.0 0 fluctuation_tactics_1<br> 600856 0.0 0.0 0 fluctuation_tactics_1<br> 002526 0.0 0.0 0 fluctuation_tactics_1<br>")
