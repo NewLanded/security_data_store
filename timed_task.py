@@ -6,6 +6,7 @@ from logging import handlers
 import schedule
 
 from source.trade_data_get import security_point_data, security_daily_basic_data
+from source.trade_result_send import update_forecase_point
 from source.trade_result_send.send_result import send_bs_result
 
 logger = logging.getLogger('/home/stock/app/security_data_store/timed_task')
@@ -33,6 +34,13 @@ def job1():
     except Exception as e:
         logger.error('error security_daily_basic_data, {0}'.format(str(e)))
     logger.info('finished security_daily_basic_data')
+
+    try:
+        logger.info('starting update_forecase_point')
+        update_forecase_point.update_forecase_point()
+    except Exception as e:
+        logger.error('error update_forecase_point, {0}'.format(str(e)))
+    logger.info('finished update_forecase_point')
 
 
 def job1_task():

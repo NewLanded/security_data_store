@@ -2,7 +2,7 @@ import datetime
 
 from source.util_table_module.base_info_module import Security_Status, S_Info
 from source.util_base.db_util import get_connection
-from source.util_table_module.data_module import Security_Daily_Basic
+from source.util_table_module.data_module import Security_Daily_Basic, Security_Point_Data
 
 
 class Stock:
@@ -44,6 +44,24 @@ class Stock:
             }
         return security_daily_basic_data
 
+    def get_security_point_data(self, ts_code, start_date, end_date):
+        result = self._session.query(Security_Point_Data).filter(Security_Point_Data.ts_code == ts_code, Security_Point_Data.trade_date >= start_date,
+                                                                 Security_Point_Data.trade_date <= end_date).all()
+        security_point_data = {}
+        for one_day_point_data in result:
+            security_point_data[one_day_point_data.trade_date] = {
+                "open": one_day_point_data.open,
+                "high": one_day_point_data.high,
+                "low": one_day_point_data.low,
+                "close": one_day_point_data.close,
+                "pre_close": one_day_point_data.pre_close,
+                "change": one_day_point_data.change,
+                "pct_change": one_day_point_data.pct_change / 100,
+                "vol": one_day_point_data.vol,
+                "amount": one_day_point_data.amount,
+            }
+        return security_point_data
+
     def is_valid_security_normal(self, ts_code):
         result = self._session.query(Security_Status).filter(Security_Status.ts_code == ts_code).all()
         valid_flag = True if result and result[0].normal_status == 1 else False
@@ -57,6 +75,6 @@ class Stock:
 
 if __name__ == "__main__":
     ss = Stock()
-    aa = ss.is_valid_security_normal('000001.SZ')
+    aa = ss.get_security_point_data('000001.SZ', datetime.datetime(2018, 7, 1), datetime.datetime(2018, 7, 4))
     print(aa)
     rr = 1
