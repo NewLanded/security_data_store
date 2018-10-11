@@ -6,7 +6,7 @@ from logging import handlers
 import schedule
 
 from source.trade_data_get import security_point_data, security_daily_basic_data
-from source.trade_result_send import update_forecase_point, update_tactics_success_rate
+from source.trade_result_send import update_forecase_point, update_tactics_success_rate, update_not_sent_result_status
 from source.trade_result_send.send_result import send_bs_result
 
 logger = logging.getLogger('/home/stock/app/security_data_store/timed_task')
@@ -55,7 +55,19 @@ def job1_task():
 
 
 def job2():
-    send_bs_result()
+    try:
+        logger.info('starting update_not_sent_result_status')
+        update_not_sent_result_status.update_not_sent_result_status()
+    except Exception as e:
+        logger.error('error update_not_sent_result_status, {0}'.format(str(e)))
+    logger.info('finished update_not_sent_result_status')
+
+    try:
+        logger.info('starting send_bs_result')
+        send_bs_result()
+    except Exception as e:
+        logger.error('error send_bs_result, {0}'.format(str(e)))
+    logger.info('finished send_bs_result')
 
 
 def run():

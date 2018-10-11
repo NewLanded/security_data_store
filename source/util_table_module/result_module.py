@@ -1,4 +1,6 @@
 from sqlalchemy import Column, String, Integer, Float, DATETIME, Boolean
+
+from sqlalchemy.dialects.mysql import TINYINT
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -13,7 +15,7 @@ class BS_Data(Base):
     s_point = Column(Float)
     quantity = Column(Integer, nullable=True, default=None)
     tactics_code = Column(String(50), nullable=True, default=None)
-    sent_flag = Column(Boolean, nullable=True, default=None)
+    sent_flag = Column(TINYINT, nullable=True, default=None)
     raise_flag = Column(Boolean, nullable=True, default=None)
     raise_pct_change = Column(Float, nullable=True, default=None)
     forecast_date = Column(DATETIME, nullable=True, default=None)

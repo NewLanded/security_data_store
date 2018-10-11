@@ -1,6 +1,6 @@
 import datetime
 from sqlalchemy import distinct
-from source.util_table_module.result_module import BS_Data
+from source.util_table_module.result_module import BS_Data, Tactics_Success_Rate
 from source.util_base.db_util import get_connection
 
 
@@ -70,14 +70,33 @@ class Result:
             })
         return blank_forecast_point_result
 
-    def update_sent_result_flag(self, result_id_list):
-        self._session.query(BS_Data).filter(BS_Data.id.in_(result_id_list)).update({"sent_flag": 1}, synchronize_session=False)
+    def update_sent_result_flag(self, result_id_list, sent_flag):
+        self._session.query(BS_Data).filter(BS_Data.id.in_(result_id_list)).update({"sent_flag": sent_flag}, synchronize_session=False)
         self._session.commit()
 
     def update_raise_column(self, result_id, raise_flag, raise_pct_change):
         self._session.query(BS_Data).filter(BS_Data.id == result_id).update({"raise_flag": raise_flag, "raise_pct_change": raise_pct_change},
                                                                             synchronize_session=False)
         self._session.commit()
+
+    def get_tactics_code_success_rate(self):
+        result = self._session.query(Tactics_Success_Rate.id, Tactics_Success_Rate.tactics_code, Tactics_Success_Rate.success_rate_3_day,
+                                     Tactics_Success_Rate.success_rate_5_day, Tactics_Success_Rate.success_rate_7_day,
+                                     Tactics_Success_Rate.success_rate_1_month, Tactics_Success_Rate.success_rate_3_month,
+                                     Tactics_Success_Rate.success_rate_6_month, Tactics_Success_Rate.success_rate_12_month).all()
+        tactics_code_success_rate = {}
+        for result_id, tactics_code, success_rate_3_day, success_rate_5_day, success_rate_7_day, success_rate_1_month, success_rate_3_month, success_rate_6_month, success_rate_12_month in result:
+            tactics_code_success_rate[tactics_code] = {
+                "id": result_id,
+                "success_rate_3_day": success_rate_3_day,
+                "success_rate_5_day": success_rate_5_day,
+                "success_rate_7_day": success_rate_7_day,
+                "success_rate_1_month": success_rate_1_month,
+                "success_rate_3_month": success_rate_3_month,
+                "success_rate_6_month": success_rate_6_month,
+                "success_rate_12_month": success_rate_12_month
+            }
+        return tactics_code_success_rate
 
 
 if __name__ == "__main__":
