@@ -18,3 +18,18 @@ class BS_Data(Base):
     raise_pct_change = Column(Float, nullable=True, default=None)
     forecast_date = Column(DATETIME, nullable=True, default=None)
     update_date = Column(DATETIME, nullable=True, default=None)
+
+
+class Tactics_Success_Rate(Base):
+    __tablename__ = 'tactics_success_rate'
+
+    id = Column(Integer, primary_key=True)
+    tactics_code = Column(String(50), nullable=True, default=None)
+    success_rate_3_day = Column(Float, nullable=True, default=None)
+    success_rate_5_day = Column(Float, nullable=True, default=None)
+    success_rate_7_day = Column(Float, nullable=True, default=None)
+    success_rate_1_month = Column(Float, nullable=True, default=None)
+    success_rate_3_month = Column(Float, nullable=True, default=None)
+    success_rate_6_month = Column(Float, nullable=True, default=None)
+    success_rate_12_month = Column(Float, nullable=True, default=None)
+    update_date = Column(DATETIME, nullable=True, default=None)

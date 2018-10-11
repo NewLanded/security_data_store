@@ -1,5 +1,5 @@
 import datetime
-
+from sqlalchemy import distinct
 from source.util_table_module.result_module import BS_Data
 from source.util_base.db_util import get_connection
 
@@ -10,6 +10,33 @@ class Result:
 
     def __del__(self):
         self._session.close()
+
+    def get_all_tactics_code(self):
+        result = self._session.query(distinct(BS_Data.tactics_code)).all()
+        all_tactics_code = [i[0] for i in result]
+
+        return all_tactics_code
+
+    def get_bs_result_by_date(self, tactics_code, start_date, end_date):
+        result = self._session.query(BS_Data.id, BS_Data.code, BS_Data.b_point, BS_Data.s_point, BS_Data.quantity, BS_Data.tactics_code,
+                                     BS_Data.forecast_date, BS_Data.raise_flag, BS_Data.raise_pct_change).filter(BS_Data.tactics_code == tactics_code,
+                                                                                                                 BS_Data.forecast_date >= start_date,
+                                                                                                                 BS_Data.forecast_date <= end_date).all()
+        bs_result = []
+        for result_id, code, b_point, s_point, quantity, tactics_code, forecast_date, raise_flag, raise_pct_change in result:
+            bs_result.append({
+                "id": result_id,
+                "code": code,
+                "b_point": b_point,
+                "s_point": s_point,
+                "quantity": quantity,
+                "tactics_code": tactics_code,
+                "forecast_date": forecast_date,
+                "raise_flag": raise_flag,
+                "raise_pct_change": raise_pct_change
+            })
+
+        return bs_result
 
     def get_unsent_result(self):
         result = self._session.query(BS_Data.id, BS_Data.code, BS_Data.b_point, BS_Data.s_point, BS_Data.quantity, BS_Data.tactics_code,
@@ -55,4 +82,4 @@ class Result:
 
 if __name__ == "__main__":
     ss = Result()
-    print(ss.get_blank_forecast_point_result())
+    print(ss.get_bs_result_by_date("fluctuation_tactics_1", datetime.datetime(2018, 10, 11), datetime.datetime(2018, 10, 11)))
