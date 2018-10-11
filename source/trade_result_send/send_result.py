@@ -28,9 +28,9 @@ def send_bs_result():
                 result_dict["success_rate_3_day"]).ljust(20, " ") + str(result_dict["success_rate_5_day"]).ljust(20, " ") + str(
                 result_dict["success_rate_7_day"]).ljust(20, " ") + "<br>"
 
-            unsent_result_str = unsent_result_str.replace(" ", space_mark)
-            send_email("bs", unsent_result_str)
-            Result().update_sent_result_flag(result_id, 1)
+        unsent_result_str = unsent_result_str.replace(" ", space_mark)
+        send_email("bs", unsent_result_str)
+        Result().update_sent_result_flag(result_id, 1)
 
 
 if __name__ == "__main__":
