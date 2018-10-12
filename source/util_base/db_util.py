@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from source.conf import DB_CONNECT
 from source.util_table_module.base_info_module import Failed_Code
 
-engine = create_engine(DB_CONNECT, echo=False)
+engine = create_engine(DB_CONNECT, echo=False, pool_recycle=3600)
 DBSession = sessionmaker(bind=engine)
 
 

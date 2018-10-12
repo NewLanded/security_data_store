@@ -28,5 +28,13 @@ show variables like 'explicit_defaults_for_timestamp';
 explicit_defaults_for_timestamp=true
 
 
+错误处理:
+1. MySQL Connection not available
+   原因是sqlalchemy的session过期, 详见 https://mofanim.wordpress.com/2013/01/02/sqlalchemy-mysql-has-gone-away/
+                                       https://blog.csdn.net/u013673976/article/details/45939297
+   show global variables like '%timeout%';  # 查看mysql连接过期时间
+   解决: sqlalchemy创建连接时加参数 pool_recycle=3600
+
+
 nohup /home/stock/airflow_py_env/bin/python timed_task.py > /dev/null 2>&1 &
 
