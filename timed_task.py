@@ -70,10 +70,16 @@ def job2():
     logger.info('finished send_bs_result')
 
 
+def job3():
+    """现在指数相关的所有指标都不太好使, 暂时都不加定时任务"""
+    pass
+
+
 def run():
     schedule.every().day.at("20:00").do(job1_task)
     # schedule.every(5).minutes.do(job2)
     schedule.every().day.at("5:30").do(job2)
+    schedule.every().day.at("1:30").do(job3)
 
 
 if __name__ == "__main__":
