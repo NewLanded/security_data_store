@@ -83,9 +83,13 @@ class Result:
         result = self._session.query(Tactics_Success_Rate.id, Tactics_Success_Rate.tactics_code, Tactics_Success_Rate.success_rate_3_day,
                                      Tactics_Success_Rate.success_rate_5_day, Tactics_Success_Rate.success_rate_7_day,
                                      Tactics_Success_Rate.success_rate_1_month, Tactics_Success_Rate.success_rate_3_month,
-                                     Tactics_Success_Rate.success_rate_6_month, Tactics_Success_Rate.success_rate_12_month).all()
+                                     Tactics_Success_Rate.success_rate_6_month, Tactics_Success_Rate.success_rate_12_month,
+                                     Tactics_Success_Rate.gain_loss_3_day, Tactics_Success_Rate.gain_loss_5_day,
+                                     Tactics_Success_Rate.gain_loss_7_day, Tactics_Success_Rate.gain_loss_1_month,
+                                     Tactics_Success_Rate.gain_loss_3_month, Tactics_Success_Rate.gain_loss_6_month,
+                                     Tactics_Success_Rate.gain_loss_12_month).all()
         tactics_code_success_rate = {}
-        for result_id, tactics_code, success_rate_3_day, success_rate_5_day, success_rate_7_day, success_rate_1_month, success_rate_3_month, success_rate_6_month, success_rate_12_month in result:
+        for result_id, tactics_code, success_rate_3_day, success_rate_5_day, success_rate_7_day, success_rate_1_month, success_rate_3_month, success_rate_6_month, success_rate_12_month, gain_loss_3_day, gain_loss_5_day, gain_loss_7_day, gain_loss_1_month, gain_loss_3_month, gain_loss_6_month, gain_loss_12_month in result:
             tactics_code_success_rate[tactics_code] = {
                 "id": result_id,
                 "success_rate_3_day": success_rate_3_day,
@@ -94,7 +98,14 @@ class Result:
                 "success_rate_1_month": success_rate_1_month,
                 "success_rate_3_month": success_rate_3_month,
                 "success_rate_6_month": success_rate_6_month,
-                "success_rate_12_month": success_rate_12_month
+                "success_rate_12_month": success_rate_12_month,
+                "gain_loss_3_day": gain_loss_3_day,
+                "gain_loss_5_day": gain_loss_5_day,
+                "gain_loss_7_day": gain_loss_7_day,
+                "gain_loss_1_month": gain_loss_1_month,
+                "gain_loss_3_month": gain_loss_3_month,
+                "gain_loss_6_month": gain_loss_6_month,
+                "gain_loss_12_month": gain_loss_12_month,
             }
         return tactics_code_success_rate
 
