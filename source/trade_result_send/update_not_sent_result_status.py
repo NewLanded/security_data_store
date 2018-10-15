@@ -11,8 +11,8 @@ def update_not_sent_result_status():
     if unsent_result:
         for result_dict in unsent_result:
             tactics_code = result_dict["tactics_code"]
-            if tactics_code_success_rate.get(tactics_code, {}).get("success_rate_3_day", 0) == 1 or tactics_code_success_rate.get(tactics_code, {}).get(
-                    "success_rate_5_day", 0) >= 0.8 or tactics_code_success_rate.get(tactics_code, {}).get("success_rate_7_day", 0) >= 0.85:
+            if tactics_code_success_rate.get(tactics_code, {}).get("success_rate_3_day", 0) >= 0.8 or tactics_code_success_rate.get(tactics_code, {}).get(
+                    "success_rate_5_day", 0) >= 0.75 or tactics_code_success_rate.get(tactics_code, {}).get("success_rate_7_day", 0) >= 0.7:
                 continue
             elif tactics_code in not_relate_to_success_rate_tactics_code:
                 pass
