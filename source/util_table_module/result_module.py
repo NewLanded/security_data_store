@@ -27,18 +27,28 @@ class Tactics_Success_Rate(Base):
 
     id = Column(Integer, primary_key=True)
     tactics_code = Column(String(50), nullable=True, default=None)
+    raise_sec_num = Column(Integer, nullable=True, default=None)
+    all_sec_num = Column(Integer, nullable=True, default=None)
+    raise_percent = Column(Float, nullable=True, default=None)
+    forecast_date = Column(DATETIME, nullable=True, default=None)
     success_rate_3_day = Column(Float, nullable=True, default=None)
     success_rate_5_day = Column(Float, nullable=True, default=None)
     success_rate_7_day = Column(Float, nullable=True, default=None)
-    success_rate_1_month = Column(Float, nullable=True, default=None)
-    success_rate_3_month = Column(Float, nullable=True, default=None)
-    success_rate_6_month = Column(Float, nullable=True, default=None)
-    success_rate_12_month = Column(Float, nullable=True, default=None)
     gain_loss_3_day = Column(Float, nullable=True, default=None)
     gain_loss_5_day = Column(Float, nullable=True, default=None)
     gain_loss_7_day = Column(Float, nullable=True, default=None)
-    gain_loss_1_month = Column(Float, nullable=True, default=None)
-    gain_loss_3_month = Column(Float, nullable=True, default=None)
-    gain_loss_6_month = Column(Float, nullable=True, default=None)
-    gain_loss_12_month = Column(Float, nullable=True, default=None)
+    update_date = Column(DATETIME, nullable=True, default=None)
+
+
+class Tactics_Break_Ori_Point_Success_Rate(Base):
+    __tablename__ = 'tactics_break_ori_point_success_rate'
+
+    id = Column(Integer, primary_key=True)
+    tactics_code = Column(String(50), nullable=True, default=None)
+    forecast_date = Column(DATETIME, nullable=True, default=None)
+    break_ori_point_sec_num = Column(Integer, nullable=True, default=None)
+    all_sec_num = Column(Integer, nullable=True, default=None)
+    break_in_3_day_rate_avg_7_day = Column(Float, nullable=True, default=None)
+    break_in_5_day_rate_avg_7_day = Column(Float, nullable=True, default=None)
+    break_in_7_day_rate_avg_7_day = Column(Float, nullable=True, default=None)
     update_date = Column(DATETIME, nullable=True, default=None)
