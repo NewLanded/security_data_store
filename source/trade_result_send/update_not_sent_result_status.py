@@ -16,8 +16,12 @@ def update_not_sent_result_status():
         for result_dict in unsent_result:
             tactics_code = result_dict["tactics_code"]
             tactics_code_success_rate = Result().get_tactics_code_newest_success_rate(tactics_code, date_now)
+            tactics_break_ori_point_success_rate = Result().get_tactics_code_newest_break_success_rate(tactics_code, date_now)
             if tactics_code_success_rate.get("success_rate_3_day", 0) >= 0.8 or tactics_code_success_rate.get("success_rate_5_day", 0) >= 0.75 or \
                     tactics_code_success_rate.get("success_rate_7_day", 0) >= 0.7:
+                continue
+            elif tactics_break_ori_point_success_rate.get("break_in_3_day_rate_avg_7_day", 0) >= 0.8 or tactics_break_ori_point_success_rate.get(
+                    "break_in_5_day_rate_avg_7_day", 0) >= 0.75 or tactics_break_ori_point_success_rate.get("break_in_7_day_rate_avg_7_day", 0) >= 0.7:
                 continue
             elif tactics_code in not_relate_to_success_rate_tactics_code:
                 continue

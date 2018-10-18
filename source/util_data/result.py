@@ -1,6 +1,6 @@
 import datetime
 from sqlalchemy import distinct
-from source.util_table_module.result_module import BS_Data, Tactics_Success_Rate
+from source.util_table_module.result_module import BS_Data, Tactics_Success_Rate, Tactics_Break_Ori_Point_Success_Rate
 from source.util_base.db_util import get_connection
 from sqlalchemy import desc
 
@@ -28,7 +28,6 @@ class Result:
         for result_id, tactics_code, raise_sec_num, forecast_date, all_sec_num, raise_percent, success_rate_3_day, success_rate_5_day, success_rate_7_day, gain_loss_3_day, gain_loss_5_day, gain_loss_7_day in result:
             tactics_success_rate_data.setdefault(forecast_date, {})[tactics_code] = {
                 "id": result_id,
-                "tactics_code": tactics_code,
                 "raise_sec_num": raise_sec_num,
                 "all_sec_num": all_sec_num,
                 "raise_percent": raise_percent,
@@ -83,7 +82,7 @@ class Result:
                                      Tactics_Success_Rate.gain_loss_3_day, Tactics_Success_Rate.gain_loss_5_day,
                                      Tactics_Success_Rate.gain_loss_7_day).filter(Tactics_Success_Rate.tactics_code == tactics_code,
                                                                                   Tactics_Success_Rate.forecast_date <= date).order_by(
-            desc(Tactics_Success_Rate.forecast_date)).one()
+            desc(Tactics_Success_Rate.forecast_date)).first()
         if result:
             tactics_code_success_rate = {
                 "id": result.id,
@@ -99,8 +98,61 @@ class Result:
 
         return tactics_code_success_rate
 
+    def get_tactics_break_ori_point_success_rate_data_by_date(self, start_date, end_date):
+        result = self._session.query(Tactics_Break_Ori_Point_Success_Rate.id, Tactics_Break_Ori_Point_Success_Rate.tactics_code,
+                                     Tactics_Break_Ori_Point_Success_Rate.forecast_date,
+                                     Tactics_Break_Ori_Point_Success_Rate.break_ori_point_sec_num_in_3_day,
+                                     Tactics_Break_Ori_Point_Success_Rate.break_ori_point_sec_num_in_5_day,
+                                     Tactics_Break_Ori_Point_Success_Rate.break_ori_point_sec_num_in_7_day,
+                                     Tactics_Break_Ori_Point_Success_Rate.all_sec_num, Tactics_Break_Ori_Point_Success_Rate.break_in_3_day_rate_avg_7_day,
+                                     Tactics_Break_Ori_Point_Success_Rate.break_in_5_day_rate_avg_7_day,
+                                     Tactics_Break_Ori_Point_Success_Rate.break_in_7_day_rate_avg_7_day).filter(
+            Tactics_Break_Ori_Point_Success_Rate.forecast_date >= start_date, Tactics_Break_Ori_Point_Success_Rate.forecast_date <= end_date).all()
+        tactics_break_ori_point_success_rate_data = {}
+        for result_id, tactics_code, forecast_date, break_ori_point_sec_num_in_3_day, break_ori_point_sec_num_in_5_day, break_ori_point_sec_num_in_7_day, all_sec_num, break_in_3_day_rate_avg_7_day, break_in_5_day_rate_avg_7_day, break_in_7_day_rate_avg_7_day in result:
+            tactics_break_ori_point_success_rate_data.setdefault(forecast_date, {})[tactics_code] = {
+                "id": result_id,
+                "break_ori_point_sec_num_in_3_day": break_ori_point_sec_num_in_3_day,
+                "break_ori_point_sec_num_in_5_day": break_ori_point_sec_num_in_5_day,
+                "break_ori_point_sec_num_in_7_day": break_ori_point_sec_num_in_7_day,
+                "all_sec_num": all_sec_num,
+                "break_in_3_day_rate_avg_7_day": break_in_3_day_rate_avg_7_day,
+                "break_in_5_day_rate_avg_7_day": break_in_5_day_rate_avg_7_day,
+                "break_in_7_day_rate_avg_7_day": break_in_7_day_rate_avg_7_day
+            }
+
+        return tactics_break_ori_point_success_rate_data
+
+    def get_tactics_code_newest_break_success_rate(self, tactics_code, date):
+        result = self._session.query(Tactics_Break_Ori_Point_Success_Rate.id, Tactics_Break_Ori_Point_Success_Rate.tactics_code,
+                                     Tactics_Break_Ori_Point_Success_Rate.forecast_date,
+                                     Tactics_Break_Ori_Point_Success_Rate.break_ori_point_sec_num_in_3_day,
+                                     Tactics_Break_Ori_Point_Success_Rate.break_ori_point_sec_num_in_5_day,
+                                     Tactics_Break_Ori_Point_Success_Rate.break_ori_point_sec_num_in_7_day,
+                                     Tactics_Break_Ori_Point_Success_Rate.all_sec_num, Tactics_Break_Ori_Point_Success_Rate.break_in_3_day_rate_avg_7_day,
+                                     Tactics_Break_Ori_Point_Success_Rate.break_in_5_day_rate_avg_7_day,
+                                     Tactics_Break_Ori_Point_Success_Rate.break_in_7_day_rate_avg_7_day).filter(
+            Tactics_Break_Ori_Point_Success_Rate.tactics_code == tactics_code,
+            Tactics_Break_Ori_Point_Success_Rate.forecast_date <= date).order_by(
+            desc(Tactics_Break_Ori_Point_Success_Rate.forecast_date)).first()
+        if result:
+            tactics_code_break_success_rate = {
+                "id": result.id,
+                "break_ori_point_sec_num_in_3_day": result.break_ori_point_sec_num_in_3_day,
+                "break_ori_point_sec_num_in_5_day": result.break_ori_point_sec_num_in_5_day,
+                "break_ori_point_sec_num_in_7_day": result.break_ori_point_sec_num_in_7_day,
+                "all_sec_num": result.all_sec_num,
+                "break_in_3_day_rate_avg_7_day": result.break_in_3_day_rate_avg_7_day,
+                "break_in_5_day_rate_avg_7_day": result.break_in_5_day_rate_avg_7_day,
+                "break_in_7_day_rate_avg_7_day": result.break_in_7_day_rate_avg_7_day
+            }
+        else:
+            tactics_code_break_success_rate = {}
+
+        return tactics_code_break_success_rate
+
 
 if __name__ == "__main__":
     ss = Result()
-    print(ss.get_tactics_code_newest_success_rate("1111", datetime.datetime(2019, 10, 11)))
+    print(ss.get_tactics_code_newest_break_success_rate("fluctuation_tactics_1", datetime.datetime(2019, 10, 11)))
     a = 1

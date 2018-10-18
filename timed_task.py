@@ -7,7 +7,8 @@ from logging import handlers
 import schedule
 
 from source.trade_data_get import security_point_data, security_daily_basic_data
-from source.trade_result_send import update_tactics_success_num, update_tactics_success_rate, update_not_sent_result_status
+from source.trade_result_send import update_tactics_success_num, update_tactics_success_rate, update_not_sent_result_status, \
+    update_tactics_break_ori_point_success_num, update_tactics_break_ori_point_success_rate
 from source.trade_result_send.send_result import send_bs_result
 
 logger = logging.getLogger('/home/stock/app/security_data_store/timed_task')
@@ -52,6 +53,20 @@ def job1():
     except Exception as e:
         logger.error('error update_tactics_success_rate, {0}'.format(str(e)))
     logger.info('finished update_tactics_success_rate')
+
+    try:
+        logger.info('starting update_tactics_break_ori_point_success_num')
+        update_tactics_break_ori_point_success_num.update_tactics_break_ori_point_success_num(date_now)
+    except Exception as e:
+        logger.error('error update_tactics_break_ori_point_success_num, {0}'.format(str(e)))
+    logger.info('finished update_tactics_break_ori_point_success_num')
+
+    try:
+        logger.info('starting update_tactics_break_ori_point_success_rate')
+        update_tactics_break_ori_point_success_rate.update_tactics_break_ori_point_success_rate(date_now)
+    except Exception as e:
+        logger.error('error update_tactics_break_ori_point_success_rate, {0}'.format(str(e)))
+    logger.info('finished update_tactics_break_ori_point_success_rate')
 
 
 def job1_task():

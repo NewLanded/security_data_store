@@ -62,7 +62,7 @@ def update_tactics_success_rate_result(session, result_id, success_rate, gain_lo
 
 def update_tactics_success_rate(date_now):
     session = get_connection()
-    start_date, end_date = date_now - datetime.timedelta(days=90), date_now
+    start_date, end_date = date_now - datetime.timedelta(days=30), date_now
 
     tactics_success_num_data = Result().get_tactics_success_rate_data_by_date(start_date, end_date)
     tactics_success_num_data = format_tactics_success_num_data(tactics_success_num_data)
