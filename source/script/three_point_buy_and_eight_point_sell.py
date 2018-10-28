@@ -19,7 +19,7 @@ if __name__ == "__main__":
         success_date = []
         total_hand = 0
         for date, high, low, open_point in security_point_data:
-            if low <= open_point * 0.97 and total_hand <= 15:
+            if low <= open_point * 0.97:
                 if hold_cost is None:
                     hold_cost = open_point * 0.97
                 else:
@@ -30,7 +30,6 @@ if __name__ == "__main__":
             if hold_cost is not None and high > hold_cost * 1.08:
                 success_date.append(date)
                 hold_cost = None
-                total_hand = 0
-        result_data.append([ts_code, len(success_date)])
+        result_data.append([ts_code, len(success_date), total_hand])
     result_data.sort(key=lambda x: x[1], reverse=True)
     print(result_data)
