@@ -7,6 +7,7 @@ from logging import handlers
 import schedule
 
 from source.trade_data_get import security_point_data, security_daily_basic_data
+from source.script.calc_static_invest_point import calc_static_invest_point
 from source.trade_result_send import update_tactics_success_num, update_tactics_success_rate, update_not_sent_result_status, \
     update_tactics_break_ori_point_success_num, update_tactics_break_ori_point_success_rate
 from source.trade_result_send.send_result import send_bs_result
@@ -94,11 +95,17 @@ def job3():
     pass
 
 
+def job4():
+    """固定点位买卖"""
+    calc_static_invest_point()
+
+
 def run():
     schedule.every().day.at("20:00").do(job1_task)
     # schedule.every(5).minutes.do(job2)
     schedule.every().day.at("5:30").do(job2)
     schedule.every().day.at("1:30").do(job3)
+    schedule.every(5).minutes.do(job4)
 
 
 if __name__ == "__main__":
