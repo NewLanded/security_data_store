@@ -22,6 +22,20 @@ class BS_Data(Base):
     update_date = Column(DATETIME, nullable=True, default=None)
 
 
+class Static_Invest(Base):
+    __tablename__ = 'static_invest'
+
+    id = Column(Integer, primary_key=True)
+    ts_code = Column(String(12), nullable=True, default=None)
+    name = Column(String(100), nullable=True, default=None)
+    open_point = Column(Float)
+    hold_cost = Column(Float)
+    buy_percent = Column(Float)
+    sell_percent = Column(Float)
+    sent_flag = Column(TINYINT, nullable=True, default=None)
+    update_date = Column(DATETIME, nullable=True, default=None)
+
+
 class Tactics_Success_Rate(Base):
     __tablename__ = 'tactics_success_rate'
 

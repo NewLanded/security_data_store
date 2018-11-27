@@ -108,6 +108,7 @@ def start():
         new_data = Sec_Date_Info(date=date, is_workday_flag=is_workday_flag)
         session.add(new_data)
         session.commit()
+    session.close()
 
 
 if __name__ == "__main__":
