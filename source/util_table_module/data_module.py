@@ -16,7 +16,7 @@ class Security_Point_Data(Base):
     close = Column(Float, nullable=True, default=None)
     pre_close = Column(Float, nullable=True, default=None)
     change = Column(Float, nullable=True, default=None)
-    pct_change = Column(Float, nullable=True, default=None)
+    pct_chg = Column(Float, nullable=True, default=None)
     vol = Column(Float, nullable=True, default=None)
     amount = Column(Float, nullable=True, default=None)
     update_date = Column(DATETIME, nullable=True, default=None)

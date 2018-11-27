@@ -56,7 +56,7 @@ class Stock:
                 "close": one_day_point_data.close,
                 "pre_close": one_day_point_data.pre_close,
                 "change": one_day_point_data.change,
-                "pct_change": one_day_point_data.pct_change / 100,
+                "pct_chg": one_day_point_data.pct_chg / 100,
                 "vol": one_day_point_data.vol,
                 "amount": one_day_point_data.amount,
             }

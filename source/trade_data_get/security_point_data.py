@@ -25,7 +25,7 @@ def store_security_point_data(session, security_point_data):
     new_data = Security_Point_Data(ts_code=security_point_data["ts_code"], trade_date=security_point_data["trade_date"], open=security_point_data["open"],
                                    high=security_point_data["high"], low=security_point_data["low"],
                                    close=security_point_data["close"], pre_close=security_point_data["pre_close"], change=security_point_data["change"],
-                                   pct_change=security_point_data["pct_change"], vol=security_point_data["vol"], amount=security_point_data["amount"],
+                                   pct_chg=security_point_data["pct_chg"], vol=security_point_data["vol"], amount=security_point_data["amount"],
                                    update_date=datetime.datetime.now())
     session.add(new_data)
     session.commit()
