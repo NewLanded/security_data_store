@@ -91,12 +91,30 @@ holiday_manual = {
     datetime.datetime(2018, 10, 5),
     datetime.datetime(2018, 10, 6),
     datetime.datetime(2018, 10, 7),
+    datetime.datetime(2019, 1, 1),
+    datetime.datetime(2019, 1, 2),
+    datetime.datetime(2019, 2, 4),
+    datetime.datetime(2019, 2, 5),
+    datetime.datetime(2019, 2, 6),
+    datetime.datetime(2019, 2, 7),
+    datetime.datetime(2019, 2, 8),
+    datetime.datetime(2019, 4, 5),
+    datetime.datetime(2019, 4, 29),
+    datetime.datetime(2019, 4, 30),
+    datetime.datetime(2019, 5, 1),
+    datetime.datetime(2019, 6, 7),
+    datetime.datetime(2019, 9, 13),
+    datetime.datetime(2019, 10, 1),
+    datetime.datetime(2019, 10, 2),
+    datetime.datetime(2019, 10, 3),
+    datetime.datetime(2019, 10, 4),
+    datetime.datetime(2019, 10, 7),
 }
 
 def start():
     session = get_connection()
-    start_date = datetime.datetime(2016, 1, 1)
-    end_date = datetime.datetime(2020, 12, 31)
+    start_date = datetime.datetime(2019, 1, 1)
+    end_date = datetime.datetime(2019, 12, 31)
 
     date_range = get_date_range(start_date, end_date)
 
