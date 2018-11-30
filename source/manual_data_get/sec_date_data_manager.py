@@ -113,7 +113,7 @@ holiday_manual = {
 
 def start():
     session = get_connection()
-    start_date = datetime.datetime(2019, 1, 1)
+    start_date = datetime.datetime(2016, 1, 1)
     end_date = datetime.datetime(2019, 12, 31)
 
     date_range = get_date_range(start_date, end_date)
