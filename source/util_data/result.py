@@ -42,32 +42,34 @@ class Result:
         return tactics_success_rate_data
 
     def get_unsent_result(self):
-        result = self._session.query(BS_Data.id, BS_Data.code, BS_Data.b_point, BS_Data.s_point, BS_Data.quantity, BS_Data.tactics_code,
+        result = self._session.query(BS_Data.id, BS_Data.code, BS_Data.b_point, BS_Data.s_point, BS_Data.quantity, BS_Data.tactics_code, BS_Data.bs_flag,
                                      BS_Data.forecast_date).filter(BS_Data.sent_flag == 0).all()
         unsent_result = []
-        for result_id, code, b_point, s_point, quantity, tactics_code, forecast_date in result:
+        for result_id, code, b_point, s_point, quantity, tactics_code, bs_flag, forecast_date in result:
             unsent_result.append({
                 "id": result_id,
                 "code": code,
                 "b_point": b_point,
                 "s_point": s_point,
                 "quantity": quantity,
+                "bs_flag": bs_flag,
                 "tactics_code": tactics_code,
                 "forecast_date": forecast_date
             })
         return unsent_result
 
     def get_bs_result_by_forecast(self, start_date, end_date):
-        result = self._session.query(BS_Data.id, BS_Data.code, BS_Data.b_point, BS_Data.s_point, BS_Data.quantity, BS_Data.tactics_code,
+        result = self._session.query(BS_Data.id, BS_Data.code, BS_Data.b_point, BS_Data.s_point, BS_Data.quantity, BS_Data.tactics_code, BS_Data.bs_flag,
                                      BS_Data.forecast_date).filter(BS_Data.forecast_date >= start_date, BS_Data.forecast_date <= end_date).all()
         blank_forecast_point_result = {}
-        for result_id, code, b_point, s_point, quantity, tactics_code, forecast_date in result:
+        for result_id, code, b_point, s_point, quantity, tactics_code, bs_flag, forecast_date in result:
             blank_forecast_point_result.setdefault(forecast_date, {}).setdefault(tactics_code, []).append({
                 "id": result_id,
                 "code": code,
                 "b_point": b_point,
                 "s_point": s_point,
                 "quantity": quantity,
+                "bs_flag": bs_flag
             })
 
         return blank_forecast_point_result

@@ -15,6 +15,7 @@ class BS_Data(Base):
     s_point = Column(Float)
     quantity = Column(Integer, nullable=True, default=None)
     tactics_code = Column(String(50), nullable=True, default=None)
+    bs_flag = Column(TINYINT, nullable=False)
     sent_flag = Column(TINYINT, nullable=True, default=None)
     raise_flag = Column(Boolean, nullable=True, default=None)
     raise_pct_change = Column(Float, nullable=True, default=None)

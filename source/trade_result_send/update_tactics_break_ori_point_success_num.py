@@ -52,18 +52,19 @@ def update_tactics_break_ori_point_success_num(date_now):
             for tactics_code, tactics_code_value_list in bs_result.items():
                 break_ori_point_sec_num_in_3_day, break_ori_point_sec_num_in_5_day, break_ori_point_sec_num_in_7_day, all_sec_num = 0, 0, 0, 0
                 for one_code_data in tactics_code_value_list:
-                    security_point_data = Stock().get_security_point_data(code_ts_code_map[one_code_data["code"]], date_previous_8_day, date_now)
-                    if date_previous_8_day in security_point_data:
-                        date_previous_8_day_security_point_data = security_point_data.pop(date_previous_8_day)
-                    else:
-                        continue
+                    if one_code_data["bs_flag"] == "b":
+                        security_point_data = Stock().get_security_point_data(code_ts_code_map[one_code_data["code"]], date_previous_8_day, date_now)
+                        if date_previous_8_day in security_point_data:
+                            date_previous_8_day_security_point_data = security_point_data.pop(date_previous_8_day)
+                        else:
+                            continue
 
-                    break_ori_point_sec_num_in_3_day_now, break_ori_point_sec_num_in_5_day_now, break_ori_point_sec_num_in_7_day_now = calc_break_data(
-                        date_previous_8_day_security_point_data, security_point_data)
-                    break_ori_point_sec_num_in_3_day += break_ori_point_sec_num_in_3_day_now
-                    break_ori_point_sec_num_in_5_day += break_ori_point_sec_num_in_5_day_now
-                    break_ori_point_sec_num_in_7_day += break_ori_point_sec_num_in_7_day_now
-                    all_sec_num += 1
+                        break_ori_point_sec_num_in_3_day_now, break_ori_point_sec_num_in_5_day_now, break_ori_point_sec_num_in_7_day_now = calc_break_data(
+                            date_previous_8_day_security_point_data, security_point_data)
+                        break_ori_point_sec_num_in_3_day += break_ori_point_sec_num_in_3_day_now
+                        break_ori_point_sec_num_in_5_day += break_ori_point_sec_num_in_5_day_now
+                        break_ori_point_sec_num_in_7_day += break_ori_point_sec_num_in_7_day_now
+                        all_sec_num += 1
 
                 store_tactics_break_ori_point_success_num(session, break_ori_point_sec_num_in_3_day, break_ori_point_sec_num_in_5_day,
                                                           break_ori_point_sec_num_in_7_day, all_sec_num, date_now, tactics_code)

@@ -22,12 +22,13 @@ def update_tactics_success_num(date_now):
     for tactics_code, tactics_code_value_list in bs_result.items():
         raise_sec_num, all_sec_num, raise_percent = 0, 0, 0
         for one_code_data in tactics_code_value_list:
-            security_pct_chg = Stock().get_security_point_data(code_ts_code_map[one_code_data["code"]], date_now, date_now).get(date_now, {}).get(
-                "pct_chg", None)
-            if security_pct_chg and security_pct_chg > 0:
-                raise_sec_num += 1
-            all_sec_num += 1
-            raise_percent += security_pct_chg
+            if one_code_data["bs_flag"] == "b":
+                security_pct_chg = Stock().get_security_point_data(code_ts_code_map[one_code_data["code"]], date_now, date_now).get(date_now, {}).get(
+                    "pct_chg", None)
+                if security_pct_chg and security_pct_chg > 0:
+                    raise_sec_num += 1
+                all_sec_num += 1
+                raise_percent += security_pct_chg
         store_sactics_success_rate(session, raise_sec_num, all_sec_num, raise_percent, date_now, tactics_code)
     session.close()
 
