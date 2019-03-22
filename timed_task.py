@@ -54,9 +54,9 @@ def run():
     date_now = datetime.datetime.now()
     logger.info('starting security_data_store, date={0}'.format(date_now))
 
-    schedule.every().day.at("20:00").do(job1_task)
+    schedule.every().day.at("20:00").do(job3)
+    schedule.every().day.at("20:30").do(job1_task)
     # schedule.every(5).minutes.do(job2)
-    schedule.every().day.at("1:30").do(job3)
 
     logger.info('finished security_data_store, date={0}'.format(date_now))
 
