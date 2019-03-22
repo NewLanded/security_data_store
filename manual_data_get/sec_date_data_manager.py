@@ -1,8 +1,7 @@
 import datetime
 
-from source.util_table_module.base_info_module import Sec_Date_Info
-from source.util_base.date_util import get_date_range
-from source.util_base.db_util import get_connection
+from util_base.date_util import get_date_range
+from util_base.db_util import store_data
 
 holiday_manual = {
     datetime.datetime(2016, 1, 1),
@@ -100,6 +99,8 @@ holiday_manual = {
     datetime.datetime(2019, 2, 8),
     datetime.datetime(2019, 4, 5),
     datetime.datetime(2019, 5, 1),
+    datetime.datetime(2019, 5, 2),
+    datetime.datetime(2019, 5, 3),
     datetime.datetime(2019, 6, 7),
     datetime.datetime(2019, 9, 13),
     datetime.datetime(2019, 10, 1),
@@ -109,22 +110,33 @@ holiday_manual = {
     datetime.datetime(2019, 10, 7),
 }
 
+
+def delete_old_data():
+    sql = """
+    truncate table sec_date_info
+    """
+    store_data(sql)
+
+
+def insert_new_data(date, is_workday_flag):
+    sql = """
+    insert into sec_date_info(date, is_workday_flag) values(:date, :is_workday_flag)
+    """
+    args = {"date": date, "is_workday_flag": is_workday_flag}
+    store_data(sql, args)
+
+
 def start():
-    session = get_connection()
     start_date = datetime.datetime(2016, 1, 1)
     end_date = datetime.datetime(2019, 12, 31)
 
     date_range = get_date_range(start_date, end_date)
 
-    session.query(Sec_Date_Info).delete()
-    session.commit()
+    delete_old_data()
 
     for date in date_range:
         is_workday_flag = 1 if datetime.datetime.isoweekday(date) <= 5 and date not in holiday_manual else 0
-        new_data = Sec_Date_Info(date=date, is_workday_flag=is_workday_flag)
-        session.add(new_data)
-        session.commit()
-    session.close()
+        insert_new_data(date, is_workday_flag)
 
 
 if __name__ == "__main__":

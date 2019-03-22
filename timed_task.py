@@ -6,11 +6,8 @@ from logging import handlers
 
 import schedule
 
-from source.trade_data_get import security_point_data, security_daily_basic_data
-from source.script.calc_static_invest_point import calc_static_invest_point
-from source.trade_result_send import update_tactics_success_num, update_tactics_success_rate, update_not_sent_result_status, \
-    update_tactics_break_ori_point_success_num, update_tactics_break_ori_point_success_rate
-from source.trade_result_send.send_result import send_bs_result
+from index_data_get import index_point_data
+from trade_data_get import security_point_data, security_daily_basic_data
 
 logger = logging.getLogger('/home/stock/app/security_data_store/timed_task')
 logger.setLevel(logging.INFO)
@@ -24,9 +21,6 @@ logger.addHandler(rf)
 
 
 def job1():
-    date_now = datetime.datetime.now()
-    date_now = datetime.datetime(date_now.year, date_now.month, date_now.day)
-
     try:
         logger.info('starting security_point_data')
         security_point_data.start()
@@ -41,71 +35,30 @@ def job1():
         logger.error('error security_daily_basic_data, {0}'.format(str(e)))
     logger.info('finished security_daily_basic_data')
 
-    try:
-        logger.info('starting update_tactics_success_num')
-        update_tactics_success_num.update_tactics_success_num(date_now)
-    except Exception as e:
-        logger.error('error update_tactics_success_num, {0}'.format(str(e)))
-    logger.info('finished update_tactics_success_num')
-
-    try:
-        logger.info('starting update_tactics_success_rate')
-        update_tactics_success_rate.update_tactics_success_rate(date_now)
-    except Exception as e:
-        logger.error('error update_tactics_success_rate, {0}'.format(str(e)))
-    logger.info('finished update_tactics_success_rate')
-
-    try:
-        logger.info('starting update_tactics_break_ori_point_success_num')
-        update_tactics_break_ori_point_success_num.update_tactics_break_ori_point_success_num(date_now)
-    except Exception as e:
-        logger.error('error update_tactics_break_ori_point_success_num, {0}'.format(str(e)))
-    logger.info('finished update_tactics_break_ori_point_success_num')
-
-    try:
-        logger.info('starting update_tactics_break_ori_point_success_rate')
-        update_tactics_break_ori_point_success_rate.update_tactics_break_ori_point_success_rate(date_now)
-    except Exception as e:
-        logger.error('error update_tactics_break_ori_point_success_rate, {0}'.format(str(e)))
-    logger.info('finished update_tactics_break_ori_point_success_rate')
-
 
 def job1_task():
     threading.Thread(target=job1).start()
 
 
-def job2():
-    try:
-        logger.info('starting update_not_sent_result_status')
-        update_not_sent_result_status.update_not_sent_result_status()
-    except Exception as e:
-        logger.error('error update_not_sent_result_status, {0}'.format(str(e)))
-    logger.info('finished update_not_sent_result_status')
-
-    try:
-        logger.info('starting send_bs_result')
-        send_bs_result()
-    except Exception as e:
-        logger.error('error send_bs_result, {0}'.format(str(e)))
-    logger.info('finished send_bs_result')
-
-
 def job3():
     """现在指数相关的所有指标都不太好使, 暂时都不加定时任务"""
-    pass
-
-
-def job4():
-    """固定点位买卖"""
-    calc_static_invest_point()
+    try:
+        logger.info('starting index_point_data')
+        index_point_data.start()
+    except Exception as e:
+        logger.error('error index_point_data, {0}'.format(str(e)))
+    logger.info('finished index_point_data')
 
 
 def run():
+    date_now = datetime.datetime.now()
+    logger.info('starting security_data_store, date={0}'.format(date_now))
+
     schedule.every().day.at("20:00").do(job1_task)
     # schedule.every(5).minutes.do(job2)
-    schedule.every().day.at("5:30").do(job2)
     schedule.every().day.at("1:30").do(job3)
-    schedule.every(5).minutes.do(job4)
+
+    logger.info('finished security_data_store, date={0}'.format(date_now))
 
 
 if __name__ == "__main__":

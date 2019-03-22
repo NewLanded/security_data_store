@@ -1,25 +1,46 @@
 import datetime
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
-from source.conf import DB_CONNECT
-from source.util_table_module.base_info_module import Failed_Code
+from conf import DB_CONNECT
 
-engine = create_engine(DB_CONNECT, echo=False, pool_recycle=3600)
+engine = create_engine(DB_CONNECT, echo=False, pool_recycle=360)
 DBSession = sessionmaker(bind=engine)
-
-
-def store_failed_message(session, code, index, error_message, date):
-    data = Failed_Code(code=code, index=index, error_message=error_message, date=date,
-                       update_date=datetime.datetime.now())
-    session.add(data)
-    session.commit()
 
 
 def get_connection():
     session = DBSession()
     return session
+
+
+def store_data(sql, args=None):
+    session = get_connection()
+    if args:
+        session.execute(text(sql), args)
+    else:
+        session.execute(text(sql))
+    session.commit()
+    session.close()
+
+
+def get_multi_data(sql, args=None):
+    session = get_connection()
+    if args:
+        result_proxy = session.execute(text(sql), args)
+    else:
+        result_proxy = session.execute(text(sql))
+    result = result_proxy.fetchall()
+    session.close()
+    return result
+
+
+def store_failed_message(code, index, error_message, date):
+    sql = """
+    insert into failed_code(`code`, `index`, `error_message`, `date`, `update_date`) values(:code, :index, :error_message, :date, :update_date)
+    """
+    args = {"code": code, "index": index, "error_message": error_message, "date": date, "update_date": datetime.datetime.now()}
+    store_data(sql, args)
 
 # import mysql.connector.pooling
 #

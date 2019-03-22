@@ -1,18 +1,13 @@
-from source.util_base.db_util import get_connection
-from source.util_table_module.index_module import Index_Basic_Info
+from util_base.db_util import get_multi_data
 
 
 class Index:
-    def __init__(self):
-        self._session = get_connection()
-
-    def __del__(self):
-        self._session.close()
-
     def get_index_basic_info(self, market):
-        result = self._session.query(Index_Basic_Info.ts_code, Index_Basic_Info.name, Index_Basic_Info.market, Index_Basic_Info.publisher,
-                                     Index_Basic_Info.category, Index_Basic_Info.base_date, Index_Basic_Info.base_point, Index_Basic_Info.list_date).filter(
-                                     Index_Basic_Info.market == market).all()
+        sql = """
+        select ts_code, name, market, publisher, category, base_date, base_point, list_date from Index_Basic_Info where market = :market
+        """
+        args = {"market": market}
+        result = get_multi_data(sql, args)
         index_basic_info = {}
         for ts_index_code, name, market, publisher, category, base_date, base_point, list_date in result:
             index_basic_info[ts_index_code] = {

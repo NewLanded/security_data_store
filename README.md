@@ -36,5 +36,5 @@ explicit_defaults_for_timestamp=true
    解决: sqlalchemy创建连接时加参数 pool_recycle=3600
 
 
-nohup /home/stock/airflow_py_env/bin/python timed_task.py > /dev/null 2>&1 &
+nohup /home/stock/anaconda3/envs/stock/bin/python timed_task.py > /dev/null 2>&1 &
 
