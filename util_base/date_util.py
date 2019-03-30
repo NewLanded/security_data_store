@@ -6,6 +6,9 @@ def convert_datetime_to_str(date):
 
 
 def convert_str_to_datetime(date):
+    if date is None:
+        return date
+
     if "-" in date:
         return datetime.datetime.strptime(date, "%Y-%m-%d")
     else:
