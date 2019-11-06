@@ -7,6 +7,7 @@ from logging import handlers
 import schedule
 
 from index_data_get import index_point_data
+from market_data_get import stock_holder_number_data
 from trade_data_get import security_point_data, security_daily_basic_data, future_daily_point_data
 
 logger = logging.getLogger('/home/stock/app/security_data_store/timed_task')
@@ -59,6 +60,19 @@ def job4():
     logger.info('finished future_daily_point_data')
 
 
+def job5():
+    try:
+        logger.info('starting stock_holder_number_data')
+        stock_holder_number_data.start()
+    except Exception as e:
+        logger.error('error stock_holder_number_data, {0}'.format(str(e)))
+    logger.info('finished stock_holder_number_data')
+
+
+def job5_task():
+    threading.Thread(target=job5).start()
+
+
 def run():
     date_now = datetime.datetime.now()
     logger.info('starting security_data_store, date={0}'.format(date_now))
@@ -66,6 +80,7 @@ def run():
     schedule.every().day.at("19:00").do(job3)
     schedule.every().day.at("19:15").do(job1_task)
     schedule.every().day.at("03:00").do(job4)
+    schedule.every().day.at("17:00").do(job5_task)
     # schedule.every(5).minutes.do(job2)
 
     logger.info('finished security_data_store, date={0}'.format(date_now))
