@@ -82,8 +82,41 @@ def calc_tactics_5_status(code):
         return False
 
 
+def calc_tactics_6_status(security_point_data):
+    security_point_data_date = list(security_point_data)
+    security_point_data_date.sort()
+    security_point_data_date = security_point_data_date[-550:]
+
+    if len(security_point_data_date) < 550:
+        return True
+
+    previous_index = 0
+    previous_avg_point = None
+    compare_lesser_number = 0
+    for index in range(50, 551, 50):
+        security_point_data_date_now = security_point_data_date[previous_index: index]
+
+        avg_point = sum(security_point_data[i]["close"] for i in security_point_data_date_now) / len(security_point_data_date_now)
+
+        if previous_avg_point is None:
+            pass
+        else:
+            if avg_point < previous_avg_point:
+                compare_lesser_number += 1
+
+        previous_index = index
+        previous_avg_point = avg_point
+
+    if compare_lesser_number >= 8:
+        return False
+    else:
+        return True
+
+
 def calc_stock_status(ts_code, date_now, ts_code_info):
     security_daily_basic_data = Stock().get_security_daily_basic_data(ts_code, date_now - datetime.timedelta(days=90), date_now)
+    security_point_data = Stock().get_security_point_data(ts_code, date_now - datetime.timedelta(days=1000), date_now)
+
     result = {
         "ts_code": ts_code,
         "normal_status": 0 if "ST" in ts_code_info["name"] else 1,  # ST股为0
@@ -92,7 +125,7 @@ def calc_stock_status(ts_code, date_now, ts_code_info):
         "tactics_3_status": 0 if calc_tactics_3_status(security_daily_basic_data) is False else 1,  # 流通股本大于等于50000, 差不多1000条
         "tactics_4_status": 0 if calc_tactics_4_status(security_daily_basic_data) is False else 1,  # 流通股本 / 总股本 大于等于0.6, 差不多714条
         "tactics_5_status": 0 if calc_tactics_5_status(ts_code_info["code"]) is False else 1,  # 深证A股, 上证A股, 中小板 为1
-        "tactics_6_status": None,
+        "tactics_6_status": 0 if calc_tactics_6_status(security_point_data) is False else 1,  # 找过去550天的数据, 分成11份, 取平均值, 若有8份及以上, 是较前一份数据在跌的, 认为这个个券不可靠, 设置为0
         "tactics_7_status": None,
         "tactics_8_status": None,
         "tactics_9_status": None,
