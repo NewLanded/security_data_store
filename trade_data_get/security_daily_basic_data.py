@@ -40,7 +40,7 @@ def start(date_now=None):
             all_security_daily_basic = get_all_security_daily_basic(convert_datetime_to_str(date_now))
             store_security_daily_basic(all_security_daily_basic)
         except Exception as e:
-            store_failed_message("", "000005", str(e), date_now)
+            store_failed_message("security_daily_basic_data", "000005", str(e), date_now)
 
 
 if __name__ == "__main__":

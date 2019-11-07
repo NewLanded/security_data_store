@@ -56,7 +56,7 @@ pro = ts.pro_api()
 #                 #         store_index_basic_data(session, one_index_basic_data)
 #         except Exception as e:
 #             session.rollback()
-#             store_failed_message(session, "", "000005", str(e), datetime.datetime.now())
+#             store_failed_message(session, "index_weight_data", "000005", str(e), datetime.datetime.now())
 #
 #     session.close()
 #
