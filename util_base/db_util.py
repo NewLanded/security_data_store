@@ -26,13 +26,29 @@ def store_data(sql, args=None):
 
 def get_multi_data(sql, args=None):
     session = get_connection()
-    if args:
-        result_proxy = session.execute(text(sql), args)
-    else:
-        result_proxy = session.execute(text(sql))
-    result = result_proxy.fetchall()
-    session.close()
+    try:
+        if args:
+            result_proxy = session.execute(text(sql), args)
+        else:
+            result_proxy = session.execute(text(sql))
+        result = result_proxy.fetchall()
+    finally:
+        session.close()
     return result
+
+
+def update_data(sql, args=None):
+    session = get_connection()
+    try:
+        if args is None:
+            session.execute(sql)
+        else:
+            session.execute(sql, args)
+        session.commit()
+    except Exception as e:
+        raise e
+    finally:
+        session.close()
 
 
 def store_failed_message(code, index, error_message, date):

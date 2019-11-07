@@ -31,12 +31,13 @@ def get_db_holder_number(ts_code, start_date, end_date):
     return holder_number_data
 
 
-def update_holder_number(holder_number, db_holder_number):
+def update_holder_number(holder_number, db_holder_number, ts_code, start_date, end_date):
     if len(holder_number) != len(db_holder_number):
         holder_number["update_date"] = datetime.datetime.now()
         holder_number["ann_date"] = holder_number["ann_date"].apply(convert_str_to_datetime)
         holder_number["end_date"] = holder_number["end_date"].apply(convert_str_to_datetime)
 
+        Market().delete_holder_number_data(ts_code, start_date, end_date)
         holder_number.to_sql("holder_number_data", engine, index=False, if_exists="append")
 
 
@@ -60,13 +61,13 @@ def start(start_date=None, end_date=None):  # 公告开始日期, 公告结束�
         try:
             holder_number = get_holder_number(ts_code, start_date, end_date)
             db_holder_number = get_db_holder_number(ts_code, start_date, end_date)
-            update_holder_number(holder_number, db_holder_number)
+            update_holder_number(holder_number, db_holder_number, ts_code, start_date, end_date)
         except Exception as e:
-            store_failed_message("", "000007", str(e), end_date)
+            store_failed_message("holder_number_data", "000005", str(e), end_date)
 
 
 if __name__ == "__main__":
     pass
-    start(datetime.datetime(2019, 3, 21))
+    start(end_date=datetime.datetime(2019, 11, 6))
     # all_security_point_data = pro.daily(trade_date="20181008")
     pass
