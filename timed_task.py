@@ -36,6 +36,13 @@ def job1():
         logger.error('error security_daily_basic_data, {0}'.format(str(e)))
     logger.info('finished security_daily_basic_data')
 
+    try:
+        logger.info('starting future_daily_point_data')
+        future_daily_point_data.start()
+    except Exception as e:
+        logger.error('error future_daily_point_data, {0}'.format(str(e)))
+    logger.info('finished future_daily_point_data')
+
 
 def job1_task():
     threading.Thread(target=job1).start()
@@ -49,15 +56,6 @@ def job3():
     except Exception as e:
         logger.error('error index_point_data, {0}'.format(str(e)))
     logger.info('finished index_point_data')
-
-
-def job4():
-    try:
-        logger.info('starting future_daily_point_data')
-        future_daily_point_data.start()
-    except Exception as e:
-        logger.error('error future_daily_point_data, {0}'.format(str(e)))
-    logger.info('finished future_daily_point_data')
 
 
 def job5():
@@ -79,7 +77,6 @@ def run():
 
     schedule.every().day.at("19:00").do(job3)
     schedule.every().day.at("19:15").do(job1_task)
-    schedule.every().day.at("03:00").do(job4)
     schedule.every().day.at("17:00").do(job5_task)
     # schedule.every(5).minutes.do(job2)
 

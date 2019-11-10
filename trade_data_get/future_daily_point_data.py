@@ -30,7 +30,6 @@ def store_future_daily_point_data(future_daily_point_data):
 def start(date_now=None):
     date_now = datetime.datetime.now() if date_now is None else date_now
     date_now = datetime.datetime(date_now.year, date_now.month, date_now.day)
-    date_now = date_now - datetime.timedelta(days=1)  # 凌晨三点跑前一天的, 因为有夜盘之类的存在
 
     if Date().is_workday(date_now):
         try:
