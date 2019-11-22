@@ -50,6 +50,13 @@ def job1():
         logger.error('error future_main_holding_data, {0}'.format(str(e)))
     logger.info('finished future_main_holding_data')
 
+    try:
+        logger.info('starting future_basic_info_data')
+        future_main_holding_data.start()
+    except Exception as e:
+        logger.error('error future_basic_info_data, {0}'.format(str(e)))
+    logger.info('finished future_basic_info_data')
+
 
 def job1_task():
     threading.Thread(target=job1).start()
