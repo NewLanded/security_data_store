@@ -44,6 +44,8 @@ def start():
         df_now = df[df["trade_date"] == datetime.datetime.now().strftime("%Y%m%d")]
         print(df_now)
 
+    print(pro.fut_mapping(trade_date='20191125'))
+
 
 if __name__ == "__main__":
     start()

@@ -45,7 +45,7 @@ def start():
             future_basic_info_data = get_future_basic_info_data(exchange)
             store_future_basic_info_data(future_basic_info_data)
         except Exception as e:
-            store_failed_message("store_future_basic_info_data failed", "000006", str(e), date_now)
+            store_failed_message("", "000006", str(e), date_now)
 
 
 if __name__ == "__main__":

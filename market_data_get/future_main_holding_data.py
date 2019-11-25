@@ -36,7 +36,7 @@ def start(date_now=None):
                 future_holding_data = get_future_holding_data(convert_datetime_to_str(date_now), exchange)
                 store_future_holding_data(future_holding_data)
             except Exception as e:
-                store_failed_message("store_future_holding_data failed", "000006", str(e), date_now)
+                store_failed_message("", "000006", str(e), date_now)
 
 
 if __name__ == "__main__":
