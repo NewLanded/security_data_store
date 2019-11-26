@@ -3,7 +3,7 @@ import time
 
 import tushare as ts
 
-from conf import PRO_KEY
+from conf import PRO_KEY, FUTURE_EXCHANGE_CODE_LIST
 from util_base.date_util import convert_datetime_to_str, convert_str_to_datetime, get_date_range
 from util_base.db_util import engine
 from util_base.db_util import store_failed_message
@@ -31,7 +31,7 @@ def start(date_now=None):
     date_now = datetime.datetime(date_now.year, date_now.month, date_now.day)
 
     if Date().is_workday(date_now):
-        for exchange in ['CZCE', 'DCE', 'SHFE']:
+        for exchange in FUTURE_EXCHANGE_CODE_LIST:
             try:
                 future_holding_data = get_future_holding_data(convert_datetime_to_str(date_now), exchange)
                 store_future_holding_data(future_holding_data)
