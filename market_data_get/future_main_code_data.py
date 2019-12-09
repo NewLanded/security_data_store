@@ -33,7 +33,7 @@ def start(date_now=None):
         future_main_code_data = get_future_main_code_data(convert_datetime_to_str(date_now))
         store_future_main_code_data(future_main_code_data)
     except Exception as e:
-        store_failed_message("", "000006", str(e), date_now)
+        store_failed_message("", "future_main_code_data", str(e), date_now)
 
 
 if __name__ == "__main__":

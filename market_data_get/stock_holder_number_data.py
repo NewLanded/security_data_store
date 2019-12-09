@@ -63,7 +63,7 @@ def start(start_date=None, end_date=None):  # 公告开始日期, 公告结束�
             db_holder_number = get_db_holder_number(ts_code, start_date, end_date)
             update_holder_number(holder_number, db_holder_number, ts_code, start_date, end_date)
         except Exception as e:
-            store_failed_message("", "000005", str(e), end_date)
+            store_failed_message("", "stock_holder_number_data", str(e), end_date)
 
 
 if __name__ == "__main__":
