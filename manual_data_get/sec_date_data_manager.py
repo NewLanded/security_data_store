@@ -108,6 +108,24 @@ holiday_manual = {
     datetime.datetime(2019, 10, 3),
     datetime.datetime(2019, 10, 4),
     datetime.datetime(2019, 10, 7),
+    datetime.datetime(2020, 1, 1),
+    datetime.datetime(2020, 1, 24),
+    datetime.datetime(2020, 1, 27),
+    datetime.datetime(2020, 1, 28),
+    datetime.datetime(2020, 1, 29),
+    datetime.datetime(2020, 1, 30),
+    datetime.datetime(2020, 4, 1),
+    datetime.datetime(2020, 5, 1),
+    datetime.datetime(2020, 5, 4),
+    datetime.datetime(2020, 5, 5),
+    datetime.datetime(2020, 6, 25),
+    datetime.datetime(2020, 6, 26),
+    datetime.datetime(2020, 10, 1),
+    datetime.datetime(2020, 10, 2),
+    datetime.datetime(2020, 10, 5),
+    datetime.datetime(2020, 10, 6),
+    datetime.datetime(2020, 10, 7),
+    datetime.datetime(2020, 10, 8),
 }
 
 
@@ -128,7 +146,7 @@ def insert_new_data(date, is_workday_flag):
 
 def start():
     start_date = datetime.datetime(2016, 1, 1)
-    end_date = datetime.datetime(2019, 12, 31)
+    end_date = datetime.datetime(2020, 12, 31)
 
     date_range = get_date_range(start_date, end_date)
 
