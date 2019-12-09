@@ -17,6 +17,11 @@ pro = ts.pro_api()
 def get_all_security_daily_basic(data_date_str):
     time.sleep(2)
     all_security_daily_basic = pro.daily_basic(trade_date=data_date_str)
+
+    # 接口返回新加了两列, 暂时没用, 就不加到数据库里面了
+    all_security_daily_basic.pop('dv_ratio')
+    all_security_daily_basic.pop('dv_ttm')
+
     all_security_daily_basic = all_security_daily_basic.where((pd.notnull(all_security_daily_basic)), None)
     time.sleep(2)
     return all_security_daily_basic
@@ -44,6 +49,6 @@ def start(date_now=None):
 
 
 if __name__ == "__main__":
-    # start(datetime.datetime(2019, 3, 21))
+    start(datetime.datetime(2019, 3, 21))
     # all_security_daily_basic = pro.daily_basic(trade_date="20181008")
     pass
