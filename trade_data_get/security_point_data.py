@@ -42,6 +42,6 @@ def start(date_now=None):
 
 if __name__ == "__main__":
     pass
-    start(datetime.datetime(2019, 3, 21))
+    start()
     # all_security_point_data = pro.daily(trade_date="20181008")
     pass

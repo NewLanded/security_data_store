@@ -40,6 +40,7 @@ def start(date_now=None):
 
 
 if __name__ == "__main__":
-    for date_now in get_date_range(datetime.datetime(2019, 10, 1), datetime.datetime(2019, 11, 19)):
-        print(date_now)
-        start(date_now)
+    # for date_now in get_date_range(datetime.datetime(2019, 10, 1), datetime.datetime(2019, 11, 19)):
+    #     print(date_now)
+    #     start(date_now)
+    start()

@@ -115,7 +115,7 @@ holiday_manual = {
     datetime.datetime(2020, 1, 29),
     datetime.datetime(2020, 1, 30),
     datetime.datetime(2020, 1, 31),
-    datetime.datetime(2020, 4, 1),
+    datetime.datetime(2020, 4, 6),
     datetime.datetime(2020, 5, 1),
     datetime.datetime(2020, 5, 4),
     datetime.datetime(2020, 5, 5),

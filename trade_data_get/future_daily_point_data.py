@@ -41,8 +41,9 @@ def start(date_now=None):
 
 if __name__ == "__main__":
     pass
-    for date_now in get_date_range(datetime.datetime(2019, 1, 1), datetime.datetime(2019, 10, 31)):
-        print(date_now)
-        start(date_now)
+    # for date_now in get_date_range(datetime.datetime(2019, 1, 1), datetime.datetime(2019, 10, 31)):
+    #     print(date_now)
+    #     start(date_now)
+    start()
     # all_future_daily_point_data = pro.daily(trade_date="20181008")
     pass
