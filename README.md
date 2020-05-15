@@ -11,7 +11,7 @@ pip install:
     pandas
     bs4
     tushare
-    mysql-connector  # 速度不如mysqlclient, 但依赖少, 安装简单
+    mysql-connector  # 速度不如mysqlclient, 但依赖少, 安装简单, 好像换成 pip install PyMySQL  这个了
     # mysqlclient  # mysqlclient  # sudo ln -s /usr/lib64/libmariadbclient.a /usr/lib64/libmariadb.a  # https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysqlclient
     xlrd
 

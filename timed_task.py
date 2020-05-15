@@ -98,9 +98,9 @@ def run():
     date_now = datetime.datetime.now()
     logger.info('starting security_data_store, date={0}'.format(date_now))
 
-    schedule.every().day.at("17:00").do(security_number_job_task)
-    schedule.every().day.at("18:30").do(daily_point_task_job)
-    schedule.every().day.at("18:40").do(market_data_job)
+    schedule.every().day.at("19:00").do(security_number_job_task)
+    schedule.every().day.at("19:30").do(daily_point_task_job)
+    schedule.every().day.at("19:40").do(market_data_job)
     schedule.every().day.at("18:50").do(index_job)
 
     # schedule.every(5).minutes.do(job2)
