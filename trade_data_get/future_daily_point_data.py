@@ -44,6 +44,6 @@ if __name__ == "__main__":
     # for date_now in get_date_range(datetime.datetime(2019, 1, 1), datetime.datetime(2019, 10, 31)):
     #     print(date_now)
     #     start(date_now)
-    start(datetime.datetime(2020, 5, 15))
+    start(datetime.datetime(2020, 5, 19))
     # all_future_daily_point_data = pro.daily(trade_date="20181008")
     pass

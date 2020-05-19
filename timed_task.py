@@ -30,25 +30,11 @@ def security_number_job():
     logger.info('finished stock_holder_number_data')
 
 
-def security_number_job_task():
+def stock_security_number_job_task():
     threading.Thread(target=security_number_job).start()
 
 
-def daily_point_job():
-    try:
-        logger.info('starting security_point_data')
-        security_point_data.start()
-    except Exception as e:
-        logger.error('error security_point_data, {0}'.format(str(e)))
-    logger.info('finished security_point_data')
-
-    try:
-        logger.info('starting security_daily_basic_data')
-        security_daily_basic_data.start()
-    except Exception as e:
-        logger.error('error security_daily_basic_data, {0}'.format(str(e)))
-    logger.info('finished security_daily_basic_data')
-
+def future_daily_point_job():
     try:
         logger.info('starting future_daily_point_data')
         future_daily_point_data.start()
@@ -64,11 +50,31 @@ def daily_point_job():
     logger.info('finished future_main_holding_data')
 
 
-def daily_point_task_job():
-    threading.Thread(target=daily_point_job).start()
+def future_daily_point_task_job():
+    threading.Thread(target=future_daily_point_job).start()
 
 
-def market_data_job():
+def stock_daily_point_job():
+    try:
+        logger.info('starting security_point_data')
+        security_point_data.start()
+    except Exception as e:
+        logger.error('error security_point_data, {0}'.format(str(e)))
+    logger.info('finished security_point_data')
+
+    try:
+        logger.info('starting security_daily_basic_data')
+        security_daily_basic_data.start()
+    except Exception as e:
+        logger.error('error security_daily_basic_data, {0}'.format(str(e)))
+    logger.info('finished security_daily_basic_data')
+
+
+def stock_daily_point_task_job():
+    threading.Thread(target=stock_daily_point_job).start()
+
+
+def future_market_data_job():
     try:
         logger.info('starting future_basic_info_data')
         future_basic_info_data.start()
@@ -84,7 +90,7 @@ def market_data_job():
     logger.info('finished future_main_code_data')
 
 
-def index_job():
+def stock_index_job():
     """现在指数相关的所有指标都不太好使, 暂时都不加定时任务"""
     try:
         logger.info('starting index_point_data')
@@ -98,10 +104,12 @@ def run():
     date_now = datetime.datetime.now()
     logger.info('starting security_data_store, date={0}'.format(date_now))
 
-    schedule.every().day.at("19:30").do(security_number_job_task)
-    schedule.every().day.at("20:20").do(daily_point_task_job)
-    schedule.every().day.at("20:10").do(market_data_job)
-    schedule.every().day.at("20:00").do(index_job)
+    schedule.every().day.at("19:00").do(stock_index_job)
+    schedule.every().day.at("18:30").do(stock_security_number_job_task)
+    schedule.every().day.at("19:20").do(stock_daily_point_task_job)
+
+    schedule.every().day.at("21:05").do(future_market_data_job)
+    schedule.every().day.at("21:10").do(future_daily_point_task_job)
 
     # schedule.every(5).minutes.do(job2)
 
