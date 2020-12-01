@@ -127,6 +127,38 @@ holiday_manual = {
     datetime.datetime(2020, 10, 6),
     datetime.datetime(2020, 10, 7),
     datetime.datetime(2020, 10, 8),
+
+    datetime.datetime(2021, 1, 1),
+    datetime.datetime(2021, 1, 2),
+    datetime.datetime(2021, 1, 3),
+    datetime.datetime(2021, 2, 11),
+    datetime.datetime(2021, 2, 12),
+    datetime.datetime(2021, 2, 13),
+    datetime.datetime(2021, 2, 14),
+    datetime.datetime(2021, 2, 15),
+    datetime.datetime(2021, 2, 16),
+    datetime.datetime(2021, 2, 17),
+    datetime.datetime(2021, 4, 3),
+    datetime.datetime(2021, 4, 4),
+    datetime.datetime(2021, 4, 5),
+    datetime.datetime(2021, 5, 1),
+    datetime.datetime(2021, 5, 2),
+    datetime.datetime(2021, 5, 3),
+    datetime.datetime(2021, 5, 4),
+    datetime.datetime(2021, 5, 5),
+    datetime.datetime(2021, 6, 12),
+    datetime.datetime(2021, 6, 13),
+    datetime.datetime(2021, 6, 14),
+    datetime.datetime(2021, 9, 19),
+    datetime.datetime(2021, 9, 20),
+    datetime.datetime(2021, 9, 21),
+    datetime.datetime(2021, 10, 1),
+    datetime.datetime(2021, 10, 2),
+    datetime.datetime(2021, 10, 3),
+    datetime.datetime(2021, 10, 4),
+    datetime.datetime(2021, 10, 5),
+    datetime.datetime(2021, 10, 6),
+    datetime.datetime(2021, 10, 7),
 }
 
 
@@ -147,7 +179,7 @@ def insert_new_data(date, is_workday_flag):
 
 def start():
     start_date = datetime.datetime(2016, 1, 1)
-    end_date = datetime.datetime(2020, 12, 31)
+    end_date = datetime.datetime(2021, 12, 31)
 
     date_range = get_date_range(start_date, end_date)
 
