@@ -90,6 +90,7 @@ holiday_manual = {
     datetime.datetime(2018, 10, 5),
     datetime.datetime(2018, 10, 6),
     datetime.datetime(2018, 10, 7),
+    datetime.datetime(2018, 12, 31),
     datetime.datetime(2019, 1, 1),
     datetime.datetime(2019, 1, 2),
     datetime.datetime(2019, 2, 4),
