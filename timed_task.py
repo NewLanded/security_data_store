@@ -54,6 +54,17 @@ def future_daily_point_task_job():
     threading.Thread(target=future_daily_point_job).start()
 
 
+def future_holding_job():
+    try:
+        logger.info('starting future_main_holding_data')
+        date_now = datetime.datetime.now()
+        date_now = datetime.datetime(date_now.year, date_now.month, date_now.day)
+        future_main_holding_data.start(date_now=date_now)
+    except Exception as e:
+        logger.error('error future_main_holding_data, {0}'.format(str(e)))
+    logger.info('finished future_main_holding_data')
+
+
 def stock_daily_point_job():
     try:
         logger.info('starting security_point_data')
@@ -110,6 +121,7 @@ def run():
 
     schedule.every().day.at("21:05").do(future_market_data_job)
     schedule.every().day.at("21:10").do(future_daily_point_task_job)
+    schedule.every().day.at("12:10").do(future_holding_job)  # 期货的持仓数据, 有时候当天会获取不到, 第二天重新获取一次
 
     # schedule.every(5).minutes.do(job2)
 
