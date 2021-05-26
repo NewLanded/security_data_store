@@ -6,7 +6,7 @@ from util_base.db_util import get_multi_data
 class Date:
     def is_workday(self, date):
         sql = """
-        select 1 from sec_date_info where date=:date and is_workday_flag=1
+        select 1 from sec_date_info where date=:date and is_workday_flag=true
         """
         args = {"date": date}
         result = get_multi_data(sql, args)
@@ -16,7 +16,7 @@ class Date:
 
     def get_previous_workday(self, date):
         sql = """
-        select max(date) from sec_date_info where date<:date and is_workday_flag=1
+        select max(date) from sec_date_info where date<:date and is_workday_flag=true
         """
         args = {"date": date}
         result = get_multi_data(sql, args)
@@ -34,7 +34,7 @@ class Date:
         result = []
         loop_count = 100
         sql = """
-        select date from sec_date_info where date<=:date_now and date>:start_date and is_workday_flag=1
+        select date from sec_date_info where date<=:date_now and date>:start_date and is_workday_flag=true
         """
         while data_num < n and loop_count:
             start_date = date_now - datetime.timedelta(n * 2)

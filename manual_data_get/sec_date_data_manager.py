@@ -4,6 +4,36 @@ from util_base.date_util import get_date_range
 from util_base.db_util import store_data
 
 holiday_manual = {
+    datetime.datetime(2015, 1, 1),
+    datetime.datetime(2015, 1, 2),
+    datetime.datetime(2015, 1, 3),
+    datetime.datetime(2015, 2, 18),
+    datetime.datetime(2015, 2, 19),
+    datetime.datetime(2015, 2, 20),
+    datetime.datetime(2015, 2, 21),
+    datetime.datetime(2015, 2, 22),
+    datetime.datetime(2015, 2, 23),
+    datetime.datetime(2015, 2, 24),
+    datetime.datetime(2015, 4, 4),
+    datetime.datetime(2015, 4, 5),
+    datetime.datetime(2015, 4, 6),
+    datetime.datetime(2015, 5, 1),
+    datetime.datetime(2015, 5, 2),
+    datetime.datetime(2015, 5, 3),
+    datetime.datetime(2015, 6, 20),
+    datetime.datetime(2015, 6, 21),
+    datetime.datetime(2015, 6, 22),
+    datetime.datetime(2015, 9, 3),
+    datetime.datetime(2015, 9, 4),
+    datetime.datetime(2015, 9, 5),
+    datetime.datetime(2015, 10, 1),
+    datetime.datetime(2015, 10, 2),
+    datetime.datetime(2015, 10, 3),
+    datetime.datetime(2015, 10, 4),
+    datetime.datetime(2015, 10, 5),
+    datetime.datetime(2015, 10, 6),
+    datetime.datetime(2015, 10, 7),
+
     datetime.datetime(2016, 1, 1),
     datetime.datetime(2016, 1, 2),
     datetime.datetime(2016, 1, 3),
@@ -179,7 +209,7 @@ def insert_new_data(date, is_workday_flag):
 
 
 def start():
-    start_date = datetime.datetime(2016, 1, 1)
+    start_date = datetime.datetime(2015, 1, 1)
     end_date = datetime.datetime(2021, 12, 31)
 
     date_range = get_date_range(start_date, end_date)
@@ -187,7 +217,7 @@ def start():
     delete_old_data()
 
     for date in date_range:
-        is_workday_flag = 1 if datetime.datetime.isoweekday(date) <= 5 and date not in holiday_manual else 0
+        is_workday_flag = True if datetime.datetime.isoweekday(date) <= 5 and date not in holiday_manual else False
         insert_new_data(date, is_workday_flag)
 
 
