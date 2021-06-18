@@ -53,7 +53,7 @@ def update_data(sql, args=None):
 
 def store_failed_message(code, index, error_message, date):
     sql = """
-    insert into failed_code(`code`, `index`, `error_message`, `date`, `update_date`) values(:code, :index, :error_message, :date, :update_date)
+    insert into failed_code(code, index, error_message, date, update_date) values(:code, :index, :error_message, :date, :update_date)
     """
     args = {"code": code, "index": index, "error_message": error_message, "date": date, "update_date": datetime.datetime.now()}
     store_data(sql, args)

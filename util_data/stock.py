@@ -19,7 +19,7 @@ class Stock:
 
     def get_security_daily_basic_data(self, ts_code, start_date, end_date):
         sql = """
-        select `trade_date`, `close`, `turnover_rate`, `turnover_rate_f`, `volume_ratio`, `pe`, `pe_ttm`, `pb`, `ps`, `ps_ttm`, `total_share`, `float_share`, `free_share`, `total_mv`, `circ_mv` from security_daily_basic
+        select trade_date, close, turnover_rate, turnover_rate_f, volume_ratio, pe, pe_ttm, pb, ps, ps_ttm, total_share, float_share, free_share, total_mv, circ_mv from security_daily_basic
         where ts_code = :ts_code and trade_date >= :start_date and trade_date <= :end_date
         """
         args = {"ts_code": ts_code, "start_date": start_date, "end_date": end_date}
@@ -47,7 +47,7 @@ class Stock:
 
     def get_security_point_data(self, ts_code, start_date, end_date):
         sql = """
-        select `trade_date`, `open`, `high`, `low`, `close`, `pre_close`, `change`, `pct_chg`, `vol`, `amount` from security_point_data
+        select trade_date, open, high, low, close, pre_close, change, pct_chg, vol, amount from security_point_data
         where ts_code = :ts_code and trade_date >= :start_date and trade_date <= :end_date
         """
         args = {"ts_code": ts_code, "start_date": start_date, "end_date": end_date}
