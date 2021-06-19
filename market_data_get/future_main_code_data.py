@@ -37,6 +37,9 @@ def start(date_now=None):
 
 
 if __name__ == "__main__":
-    for date_now in get_date_range(datetime.datetime(2021, 1, 1), datetime.datetime(2021, 5, 18)):
+    for date_now in get_date_range(datetime.datetime(2015, 1, 1), datetime.datetime(2021, 6, 18)):
         print(date_now)
         start(date_now)
+    # start(datetime.datetime(2020, 5, 19))
+    # all_future_daily_point_data = pro.daily(trade_date="20181008")
+    pass

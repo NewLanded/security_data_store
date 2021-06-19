@@ -5,7 +5,7 @@ import pandas as pd
 import tushare as ts
 
 from conf import PRO_KEY
-from util_base.date_util import convert_datetime_to_str, convert_str_to_datetime
+from util_base.date_util import convert_datetime_to_str, convert_str_to_datetime, get_date_range
 from util_base.db_util import engine
 from util_base.db_util import store_failed_message
 from util_data.date import Date
@@ -31,7 +31,7 @@ def store_security_daily_basic(security_daily_basic_data):
     security_daily_basic_data["update_date"] = datetime.datetime.now()
     security_daily_basic_data["trade_date"] = security_daily_basic_data["trade_date"].apply(convert_str_to_datetime)
     security_daily_basic_data["turnover_rate"] = security_daily_basic_data["turnover_rate"].apply(lambda x: x / 100)
-    security_daily_basic_data["turnover_rate_f"] = security_daily_basic_data["turnover_rate_f"].apply(lambda x: x / 100)
+    security_daily_basic_data["turnover_rate_f"] = security_daily_basic_data["turnover_rate_f"].apply(lambda x: x / 100 if x else x)
 
     security_daily_basic_data.to_sql("security_daily_basic", engine, index=False, if_exists="append")
 
@@ -49,6 +49,9 @@ def start(date_now=None):
 
 
 if __name__ == "__main__":
-    start()
-    # all_security_daily_basic = pro.daily_basic(trade_date="20181008")
+    for date_now in get_date_range(datetime.datetime(2018, 12, 14), datetime.datetime(2021, 6, 18)):
+        print(date_now)
+        start(date_now)
+    # start(datetime.datetime(2020, 5, 19))
+    # all_future_daily_point_data = pro.daily(trade_date="20181008")
     pass

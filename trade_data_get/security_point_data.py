@@ -4,7 +4,7 @@ import time
 import tushare as ts
 
 from conf import PRO_KEY
-from util_base.date_util import convert_datetime_to_str, convert_str_to_datetime
+from util_base.date_util import convert_datetime_to_str, convert_str_to_datetime, get_date_range
 from util_base.db_util import engine
 from util_base.db_util import store_failed_message
 from util_data.date import Date
@@ -41,7 +41,10 @@ def start(date_now=None):
 
 
 if __name__ == "__main__":
-    pass
-    start()
-    # all_security_point_data = pro.daily(trade_date="20181008")
+    for date_now in get_date_range(datetime.datetime(2021, 5, 19), datetime.datetime(2021, 6, 18)):
+        print(date_now)
+        start(date_now)
+
+    # start(datetime.datetime(2020, 5, 19))
+    # all_future_daily_point_data = pro.daily(trade_date="20181008")
     pass
