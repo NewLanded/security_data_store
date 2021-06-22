@@ -116,7 +116,7 @@ def run():
     logger.info('starting security_data_store, date={0}'.format(date_now))
 
     schedule.every().day.at("19:00").do(stock_index_job)
-    schedule.every().day.at("18:30").do(stock_security_number_job_task)
+    schedule.every().day.at("23:30").do(stock_security_number_job_task)
     schedule.every().day.at("19:20").do(stock_daily_point_task_job)
 
     schedule.every().day.at("21:05").do(future_market_data_job)

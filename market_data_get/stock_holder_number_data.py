@@ -21,7 +21,7 @@ def get_ts_code_list():
 
 
 def get_holder_number(ts_code, start_date, end_date):
-    time.sleep(1)
+    time.sleep(2)
     holder_number_data = pro.stk_holdernumber(ts_code=ts_code, start_date=convert_datetime_to_str(start_date), end_date=convert_datetime_to_str(end_date))
     return holder_number_data
 
@@ -68,6 +68,6 @@ def start(start_date=None, end_date=None):  # 公告开始日期, 公告结束�
 
 if __name__ == "__main__":
     pass
-    start(end_date=datetime.datetime(2019, 11, 6))
+    start(end_date=datetime.datetime(2021, 6, 17))
     # all_security_point_data = pro.daily(trade_date="20181008")
     pass
