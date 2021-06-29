@@ -106,3 +106,4 @@ venv.bak/
 conf.py
 tk.csv
 z_pdf
+.vscode

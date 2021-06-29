@@ -2,11 +2,10 @@ import datetime
 import time
 
 import tushare as ts
-
 from conf import PRO_KEY
-from util_base.date_util import convert_datetime_to_str, convert_str_to_datetime, get_date_range
-from util_base.db_util import engine
-from util_base.db_util import store_failed_message
+from util_base.date_util import (convert_datetime_to_str,
+                                 convert_str_to_datetime, get_date_range)
+from util_base.db_util import engine, store_failed_message
 from util_data.date import Date
 
 ts.set_token(PRO_KEY)
