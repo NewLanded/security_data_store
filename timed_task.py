@@ -7,7 +7,7 @@ from logging import handlers
 import schedule
 
 from index_data_get import index_point_data
-from market_data_get import stock_holder_number_data, future_main_holding_data, future_main_code_data, future_basic_info_data
+from market_data_get import stock_holder_number_data, future_main_holding_data, future_main_code_data, future_basic_info_data, security_info
 from trade_data_get import security_point_data, security_daily_basic_data, future_daily_point_data
 
 logger = logging.getLogger('/home/stock/app/security_data_store/timed_task')
@@ -111,6 +111,15 @@ def stock_index_job():
     logger.info('finished index_point_data')
 
 
+def basic_info_job():
+    try:
+        logger.info('starting security_info')
+        security_info.start()
+    except Exception as e:
+        logger.error('error security_info, {0}'.format(str(e)))
+    logger.info('finished security_info')
+
+
 def run():
     date_now = datetime.datetime.now()
     logger.info('starting security_data_store, date={0}'.format(date_now))
@@ -123,6 +132,7 @@ def run():
     schedule.every().day.at("21:10").do(future_daily_point_task_job)
     schedule.every().day.at("12:10").do(future_holding_job)  # 期货的持仓数据, 有时候当天会获取不到, 第二天重新获取一次
 
+    schedule.every().day.at("23:30").do(basic_info_job)
     # schedule.every(5).minutes.do(job2)
 
     logger.info('finished security_data_store, date={0}'.format(date_now))
