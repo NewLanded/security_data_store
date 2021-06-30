@@ -1,3 +1,4 @@
+import calendar
 import datetime
 import time
 
@@ -55,15 +56,17 @@ def start(start_date=None, end_date=None):  # 公告开始日期, 公告结束�
     if start_date is None:
         start_date = end_date - datetime.timedelta(days=360)
 
-    ts_code_list = get_ts_code_list()
+    end_day = calendar.monthrange(end_date.year, end_date.month)[1]
+    if end_date.day == end_day:
+        ts_code_list = get_ts_code_list()
 
-    for ts_code in ts_code_list:
-        try:
-            holder_number = get_holder_number(ts_code, start_date, end_date)
-            db_holder_number = get_db_holder_number(ts_code, start_date, end_date)
-            update_holder_number(holder_number, db_holder_number, ts_code, start_date, end_date)
-        except Exception as e:
-            store_failed_message("", "stock_holder_number_data", str(e), end_date)
+        for ts_code in ts_code_list:
+            try:
+                holder_number = get_holder_number(ts_code, start_date, end_date)
+                db_holder_number = get_db_holder_number(ts_code, start_date, end_date)
+                update_holder_number(holder_number, db_holder_number, ts_code, start_date, end_date)
+            except Exception as e:
+                store_failed_message("", "stock_holder_number_data", str(e), end_date)
 
 
 if __name__ == "__main__":
